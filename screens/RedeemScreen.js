@@ -9,17 +9,21 @@ import {
 import { Actions } from 'react-native-router-flux'
 
 
-const RedeemScreen = () => {
+class RedeemScreen extends Component {
 
-    return (
-        <View style = {styles.container}>
-            <Text 
-                style = {styles.welcome}
-            >
-                Redeem Screen
-            </Text>
-        </View>
-    );
+    render(){
+
+        return (
+            <View style = {styles.container}>
+                <Text 
+                    style = {styles.welcome}
+                >
+                    Redeem Screen
+                </Text>
+            </View>
+        );
+
+    }
 }
 
 const styles = StyleSheet.create({

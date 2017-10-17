@@ -9,17 +9,20 @@ import {
 import { Actions } from 'react-native-router-flux'
 
 
-const CheckinScreen = () => {
+class CheckinScreen extends Component {
 
-    return (
-        <View style = {styles.container}>
-            <Text 
-                style = {styles.welcome}
-            >
-                Map Screen
-            </Text>
-        </View>
-    );
+    render() {
+        return (
+            <View style = {styles.container}>
+                <Text 
+                    style = {styles.welcome}
+                >
+                    Map Screen
+                </Text>
+            </View>
+        );
+    }
+
 }
 
 const styles = StyleSheet.create({

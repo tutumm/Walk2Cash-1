@@ -9,17 +9,22 @@ import {
 import { Actions } from 'react-native-router-flux'
 
 
-const UserScreen = () => {
+class UserScreen extends Component {
 
-    return (
-        <View style = {styles.container}>
-            <Text 
-                style = {styles.welcome}
-            >
-                User Screen
-            </Text>
-        </View>
-    );
+    render() {
+
+        return (
+            <View style = {styles.container}>
+                <Text 
+                    style = {styles.welcome}
+                >
+                    User Screen
+                </Text>
+            </View>
+        );
+
+    }
+
 }
 
 const styles = StyleSheet.create({

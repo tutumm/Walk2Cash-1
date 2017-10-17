@@ -6,7 +6,7 @@ import {
   Image,
   View
 } from 'react-native';
-
+import { LinearGradient } from 'expo';
 import { Router,Scene } from 'react-native-router-flux'
 
 import DashboardScreen from './screens/DashboardScreen.js'
@@ -14,23 +14,8 @@ import CheckinScreen from './screens/CheckinScreen.js'
 import RedeemScreen from './screens/RedeemScreen.js'
 import UserScreen from './screens/UserScreen.js'
 
-
-import BlueScreen from './screens/BlueScreen.js'
 import LoginScreen from './screens/LoginScreen.js'
 import BlackScreen from './screens/BlackScreen.js'
-
-
-// class TabIcon extends Component {
-//   render(){
-
-//       console.log(this.props)
-//       return (
-//         <Image 
-//           source={require('./images/profiles.png')}
-//         />
-//       );
-//   }
-// }
 
 const TabIcon = ({ focused, title }) => {
 

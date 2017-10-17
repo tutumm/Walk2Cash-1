@@ -23,6 +23,7 @@ export default class Profile extends Component {
 
   _onForward = () => {
     
+    
     const { username,password,warning } = this.state
 
     if(username == '' || password == '' ){

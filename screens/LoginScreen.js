@@ -8,7 +8,6 @@ import {
   Modal,
   Button
 } from 'react-native';
-import { LinearGradient } from 'expo';
 
 import { Actions } from 'react-native-router-flux'
 
@@ -30,7 +29,7 @@ export default class Profile extends Component {
        this.setState({
            warning : 'Login Failed'
        })
-
+    //    this.setModalVisible(true)
     }else{
         Actions.tabbar({username})
         this.setState({
@@ -45,9 +44,7 @@ export default class Profile extends Component {
     const {username,password} = this.state
     
     return (
-      <LinearGradient
-      colors={['#171A2C', '#F0318B']}
-      style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.logoText}>Walk2Cash</Text>
 
         <TextInput
@@ -77,7 +74,8 @@ export default class Profile extends Component {
         <View style={styles.signUpButton}>
           <Text style={{textAlign: 'center', backgroundColor: 'transparent', fontSize: 18, color: 'white'}}>Sign Up</Text>
         </View>
-        </LinearGradient>
+        
+      </View>
     );
   }
 }
@@ -89,6 +87,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: '#5A1F44',
     },
     logoText: {
       fontSize: 40,

@@ -100,10 +100,11 @@ const App = () => {
              hideNavBar = {true}   
              showLabel = {false}          
              tabBarStyle = {{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 10}}
+              tabBarPosition = {'bottom'}
           >
           
             <Scene key = "firstTab" 
-                navigationBarStyle={{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}}
+                navigationBarStyle={{backgroundColor : '#262E46',height: 80,paddingTop:20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}}
                 titleStyle = {{color : 'white'}}  
                 title = "Dashboard" 
                 icon = {TabIcon}>

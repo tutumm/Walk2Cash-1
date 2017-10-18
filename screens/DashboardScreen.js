@@ -27,6 +27,15 @@ class DashboardScreen extends Component {
                 </Text>
 
                 <Text style = {{color : '#F5318D'}}>Welcome {this.props.username} :)</Text>
+
+
+                <View style={styles.square}>
+                    <Text>MY POINT: 100000</Text>
+                </View>
+
+
+
+
             </View>
         );
     }
@@ -34,6 +43,12 @@ class DashboardScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    square: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#262d47'
+        // paddingHorizontal: '200'
+    },
     container: {
       flex: 1,
       justifyContent: 'center',

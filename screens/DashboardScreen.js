@@ -3,7 +3,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  StatusBar
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
@@ -14,6 +15,10 @@ class DashboardScreen extends Component {
     render(){
         return (
             <View style = {styles.container}>
+                <StatusBar
+                    backgroundColor="blue"
+                    barStyle="light-content"
+                />
                 <Text 
                     style = {styles.welcome}
                     onPress = {() => Actions.black() }

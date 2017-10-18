@@ -7,7 +7,8 @@ import {
   StatusBar,
   Image,
   Dimensions,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import Carousel from 'react-native-banner-carousel'
@@ -49,6 +50,10 @@ const items = [
   }
 ]
 
+const categories = [
+  'Beverages', 'Foods', 'Cosmetics', 'Charities', 'Electronics', 'Fashions'
+]
+
 const searchImage = () => (
   <Image source='./images/search.png' />
 )
@@ -69,7 +74,15 @@ class RedeemScreen extends Component {
             <Text style={styles.point}>{item.point}</Text>
         </View>
     );
-}
+  }
+
+  renderCategory (category, index){
+    return (
+      <View key={index}>
+          <Text style={styles.categoryButton}>{category}</Text>
+      </View>
+    );
+  }
 
   state = {
     searchVoucher: ''
@@ -77,7 +90,7 @@ class RedeemScreen extends Component {
 
   render(){
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <StatusBar
           backgroundColor="blue"
           barStyle="light-content"
@@ -119,15 +132,15 @@ class RedeemScreen extends Component {
 
         <View style={styles.categories}>
           <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Categories</Text>
+          {categories.map((category, index) => this.renderCategory(category, index))}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
       alignItems: 'center',
       backgroundColor: '#171C2F',
     },
@@ -178,7 +191,21 @@ const styles = StyleSheet.create({
       shadowRadius: 3
     },
     categories: {
-      width: 250
+      width: 250,
+      marginBottom: 100
+    },
+    categoryButton: {
+      fontSize: 20,
+      marginTop: 10,
+      paddingTop: 3,
+      borderRadius: 50,
+      height: 35,
+      width: 250,
+      borderRadius:10,
+      borderWidth: 1,
+      borderColor: '#F72582',
+      color: '#F72582',
+      textAlign: 'center',
     }
   });
   

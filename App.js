@@ -39,9 +39,9 @@ const TabIcon = ({ focused, title }) => {
         return (
           <View>
             {focused ? (
-               <Image source={require('./assets/graph_w.png')} style={styles.iconStyleSelected} />
+               <Image source={require('./assets/images/graph_w.png')} style={styles.iconStyleSelected} />
             ) : (
-               <Image source={require('./assets/graph_w.png')} style={styles.iconStyle} />
+               <Image source={require('./assets/images/graph_w.png')} style={styles.iconStyle} />
             )}
           </View>
           );
@@ -49,9 +49,9 @@ const TabIcon = ({ focused, title }) => {
         return (
           <View>
           {focused ? (
-               <Image source={require('./assets/placeholder_w.png')} style={styles.iconStyleSelected} />
+               <Image source={require('./assets/images/placeholder_w.png')} style={styles.iconStyleSelected} />
               ) : (
-             <Image source={require('./assets/placeholder_w.png')} style={styles.iconStyle} />
+             <Image source={require('./assets/images/placeholder_w.png')} style={styles.iconStyle} />
           )}
         </View>
         );
@@ -59,9 +59,9 @@ const TabIcon = ({ focused, title }) => {
         return (
           <View>
           {focused ? (
-              <Image source={require('./assets/ticket_w.png')} style={styles.iconStyleSelected} />
+              <Image source={require('./assets/images/ticket_w.png')} style={styles.iconStyleSelected} />
               ) : (
-             <Image source={require('./assets/ticket_w.png')} style={styles.iconStyle} />
+             <Image source={require('./assets/images/ticket_w.png')} style={styles.iconStyle} />
           )}
         </View>
         );
@@ -69,9 +69,9 @@ const TabIcon = ({ focused, title }) => {
         return (
           <View>
           {focused ? (
-              <Image source={require('./assets/user_w.png')} style={styles.iconStyleSelected} />
+              <Image source={require('./assets/images/user_w.png')} style={styles.iconStyleSelected} />
               ) : (
-             <Image source={require('./assets/user_w.png')} style={styles.iconStyle} />
+             <Image source={require('./assets/images/user_w.png')} style={styles.iconStyle} />
           )}
         </View>
         );
@@ -126,7 +126,7 @@ const App = () => {
             </Scene>
 
             <Scene key = "secondTab" 
-                 navigationBarStyle={{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
+                 navigationBarStyle={{backgroundColor : '#262E46',height: 80,paddingTop:20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
                  titleStyle = {{color : 'white'}} 
                  title = "Checkin" 
                  icon = {TabIcon}>
@@ -141,7 +141,7 @@ const App = () => {
             </Scene>
 
             <Scene key = "thirdTab" 
-                 navigationBarStyle={{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
+                 navigationBarStyle={{backgroundColor : '#262E46',height: 80,paddingTop:20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
                  titleStyle = {{color : 'white'}} 
                  title = "Redeem" 
                  icon = {TabIcon}>
@@ -157,7 +157,7 @@ const App = () => {
 
 
             <Scene key = "fourthTab" 
-                 navigationBarStyle={{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
+                 navigationBarStyle={{backgroundColor : '#262E46',height: 80,paddingTop:20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
                  titleStyle = {{color : 'white'}} 
                  title = "User" 
                  icon = {TabIcon}>

@@ -44,9 +44,6 @@ class DashboardScreen extends Component {
                     <Text style={styles.textstyle}>Circle</Text>
                 </View>
 
-
-
-
             </View>
         );
     }

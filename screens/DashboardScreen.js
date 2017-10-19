@@ -34,8 +34,6 @@ class DashboardScreen extends Component {
                 </View>
 
 
-
-
             </View>
         );
     }

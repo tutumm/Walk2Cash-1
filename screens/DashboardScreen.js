@@ -12,11 +12,11 @@ import { Font } from 'expo';
 
 
 class DashboardScreen extends Component {
-    componentDidMount() {
-        Font.loadAsync({
-          'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.ttf'),
-        });
-      }
+    // componentDidMount() {
+    //     Font.loadAsync({
+    //       'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.ttf'),
+    //     });
+    //   }
 
 
     render(){
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         width: 250,
         height: 80,
         margin: 10,
-        fontFamily: 'Montserrat-Regular'
+        // fontFamily: 'Montserrat-Regular'
     },
     container: {
       flex: 1,

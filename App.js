@@ -86,13 +86,21 @@ const App = () => {
 
         <Scene key = "root">
 
+<<<<<<< HEAD
         {/* <Scene
+=======
+        {/*<Scene
+>>>>>>> Add map screen : current location and custom pin
           key = "login"
           component = {LoginScreen}
           title = "LoginScreen"
           hideNavBar={true}
           initial
+<<<<<<< HEAD
         /> */}
+=======
+        */}
+>>>>>>> Add map screen : current location and custom pin
 
           <Scene
              key =  "tabbar"

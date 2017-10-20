@@ -2,12 +2,12 @@ import React from 'react'
 
 import { Modal, Text, TouchableHighlight, View,StyleSheet } from 'react-native'
 import { MapView } from 'expo'
-
+// import Modal from 'react-native-modal'
 
 export default class Map extends React.Component {
-  
+
   state = {
-    modalVisible: false,
+    visibleModal: false,
     customPins : [
       {
         latitude : 13.786916,
@@ -35,7 +35,6 @@ export default class Map extends React.Component {
       visibleModal : true,
       pinSelected : pin
     })
-
   }
 
   render() {
@@ -139,4 +138,3 @@ const styles = StyleSheet.create({
     margin : 0,
   },
 });
-

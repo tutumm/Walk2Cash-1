@@ -1,20 +1,43 @@
 import React from 'react'
+
+import { Modal, Text, TouchableHighlight, View } from 'react-native'
 import { MapView } from 'expo'
 
 
 export default class Map extends React.Component {
   
+  state = {
+    modalVisible: false,
+    customPins : [
+      {
+        latitude : 13.786916,
+        longitude : 100.572402,
+        title : 'The Kris Condominium'
+      },
+      {
+        latitude :  13.786783,
+        longitude : 100.574638,
+        title : 'Muang Thai Life Assurance'
+      },
+      {
+        latitude : 13.652554,
+        longitude : 100.491527,
+        title : 'Thonburirom Park'
+      }
+
+    ]
+  }
+
+  _showModal(pin){
+    this.setState({modalVisible : true})
+    console.log(pin.latitude)
+  }
+
   render() {
 
-    console.log(this.props.regionLocation)
+    //console.log(this.props.regionLocation)
 
-    state = {
-      modalVisible: false,
-    }
-
-    _showModal = () => {
-       console.log("Show modal")
-    }
+    const { customPins } = this.state
 
     return (
       <MapView
@@ -23,40 +46,20 @@ export default class Map extends React.Component {
         region = {this.props.regionLocation}
       >
 
-        
-      
-        <MapView.Marker
-          coordinate = {{
-            latitude : 13.786916,
-            longitude : 100.572402
-          }}
-          pinColor = '#FA8072'
-        />
-
-        <MapView.Marker
-          coordinate = {{
-            latitude : 13.648101,
-            longitude : 100.493964
-          }}
-          pinColor = '#FA8072'
-        />
-
-        <MapView.Marker
-          coordinate = {{
-            latitude : 13.652554,
-            longitude : 100.491527
-          }}
-          title = 'Thonburirom Park'
-          pinColor = '#FA8072'
-          onPress = {this._showModal}
-        >
-          
-          {/* onSelect = { this._showModal }            
-          title = 'Thonburirom Park'
-          pinColor = '#FA8072' */}
-        
-        </MapView.Marker>
-
+      { customPins.map((pin,index)=>{
+             return  (
+                <MapView.Marker key = {index}
+                  coordinate = {{
+                    latitude : pin.latitude,
+                    longitude : pin.longitude
+                  }}
+                  title = { pin.title }
+                  onPress = { () => this._showModal(pin) }
+                  pinColor = 'FA8072'
+                />
+             );
+                                
+      })}
 
       </MapView>
     );

@@ -25,12 +25,7 @@ class CheckinScreen extends Component {
                 longitude: 0
             }
         }
-        // modalVisible: false,
     }
-
-    // setModalVisible(visible) {
-    //     this.setState({modalVisible: visible});
-    // }
 
     componentWillMount() {
         Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged);
@@ -51,27 +46,11 @@ class CheckinScreen extends Component {
 
                 <Map 
                     regionLocation = {this.state.region}
-                >
+                />
 
-                </Map>
         );
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#171C2F',
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-      color : '#F5318D'
-    }
-  });
   
-  export default CheckinScreen
+export default CheckinScreen

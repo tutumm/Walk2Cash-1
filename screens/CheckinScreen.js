@@ -50,7 +50,6 @@ class CheckinScreen extends Component {
 
         );
     }
-
 }
   
 export default CheckinScreen

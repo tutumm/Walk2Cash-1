@@ -86,21 +86,13 @@ const App = () => {
 
         <Scene key = "root">
 
-<<<<<<< HEAD
-        {/* <Scene
-=======
         {/*<Scene
->>>>>>> Add map screen : current location and custom pin
           key = "login"
           component = {LoginScreen}
           title = "LoginScreen"
           hideNavBar={true}
           initial
-<<<<<<< HEAD
-        /> */}
-=======
         */}
->>>>>>> Add map screen : current location and custom pin
 
           <Scene
              key =  "tabbar"
@@ -134,7 +126,7 @@ const App = () => {
             </Scene>
 
             <Scene key = "secondTab" 
-                 navigationBarStyle={{backgroundColor : '#262E46',height: 80,paddingTop:20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
+                 navigationBarStyle={{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
                  titleStyle = {{color : 'white'}} 
                  title = "Checkin" 
                  icon = {TabIcon}>
@@ -149,7 +141,7 @@ const App = () => {
             </Scene>
 
             <Scene key = "thirdTab" 
-                 navigationBarStyle={{backgroundColor : '#262E46',height: 80,paddingTop:20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
+                 navigationBarStyle={{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
                  titleStyle = {{color : 'white'}} 
                  title = "Redeem" 
                  icon = {TabIcon}>
@@ -165,7 +157,7 @@ const App = () => {
 
 
             <Scene key = "fourthTab" 
-                 navigationBarStyle={{backgroundColor : '#262E46',height: 80,paddingTop:20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
+                 navigationBarStyle={{backgroundColor : '#262E46', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 2}} 
                  titleStyle = {{color : 'white'}} 
                  title = "User" 
                  icon = {TabIcon}>

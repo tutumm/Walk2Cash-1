@@ -13,7 +13,6 @@ import Pie from 'react-native-pie'
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class DashboardScreen extends Component {
-<<<<<<< HEAD
 
   render() {
     return (
@@ -39,31 +38,7 @@ class DashboardScreen extends Component {
             <View style={styles.gauge}>
               <Text style={styles.gaugeGoal}>Goal: 8000</Text>
               <Text style={styles.gaugeText}>5024 steps</Text>
-=======
     
-    render(){
-        return (
-            <View style = {styles.container}>
-                <StatusBar
-                    backgroundColor="blue"
-                    barStyle="light-content"
-                />
-                <Text 
-                    style = {styles.welcome}
-                    onPress = {() => Actions.black() }
-                >
-                    Dashboard Screen
-                </Text>
-
-                <Text style = {{color : '#F5318D'}}>Welcome {this.props.username} :)</Text>
-
-
-                <View style={styles.square}>
-                    <Text>MY POINT: 100000</Text>
-                </View>
-
-
->>>>>>> Add map screen : current location and custom pin
             </View>
           </View>
           <Grid style={{marginTop: 10}}>

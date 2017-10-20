@@ -38,7 +38,6 @@ class DashboardScreen extends Component {
             <View style={styles.gauge}>
               <Text style={styles.gaugeGoal}>Goal: 8000</Text>
               <Text style={styles.gaugeText}>5024 steps</Text>
-    
             </View>
           </View>
           <Grid style={{marginTop: 10}}>

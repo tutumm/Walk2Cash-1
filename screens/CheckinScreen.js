@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Modal,
   TouchableHighlight,
   StatusBar
 } from 'react-native';

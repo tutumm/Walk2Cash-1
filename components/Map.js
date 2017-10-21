@@ -1,7 +1,10 @@
 import React from 'react'
 
-import { Modal, Text, TouchableHighlight, View,StyleSheet } from 'react-native'
+import { Text, TouchableHighlight, View,StyleSheet } from 'react-native'
 import { MapView } from 'expo'
+
+import Modal from 'react-native-modalbox'
+import Slider from 'react-native-slider'
 // import Modal from 'react-native-modal'
 
 export default class Map extends React.Component {
@@ -27,21 +30,41 @@ export default class Map extends React.Component {
     ],
     pinSelected : {
       
-    }
+    },
+    indexSelect : 0,
+    isOpen: false,
+    isDisabled: false,
+    swipeToClose: true
   }
 
-  _showModal(pin){
+  _showModal(pin,index){
+
+    this.refs.mapModal.open()
     this.setState({
-      visibleModal : true,
-      pinSelected : pin
+      pinSelected : pin,
+      indexSelected : index
     })
+  }
+
+
+  handleClaim(index){
+    const { customPins } = this.state
+    const i = index.index 
+    customPins.splice(i,1)
+    this.setState({
+      pinSelected : { },
+      customPins : customPins,
+    })
+
+    this.refs.mapModal.close()
+    
   }
 
   render() {
 
     //console.log(this.props.regionLocation)
 
-    const { customPins } = this.state
+    const { customPins,pinSelected,isDisabled } = this.state
 
     return (
       <MapView
@@ -58,38 +81,16 @@ export default class Map extends React.Component {
                       longitude : pin.longitude
                     }}
                     title = { pin.title }
-                    onPress = { () => { this._showModal(pin) } }
+                    onPress = { () => { this._showModal(pin,{index}) } }
                     pinColor = 'FA8072'
                   />
               );               
         })}
 
-        <View style = {{marginTop : 50}}>
-            <Modal 
-              visible={this.state.visibleModal}
-              transparent={true}
-              animationType = "slide"
-              style = {styles.containerStyle}
-            >
-
-          <View style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            alignItems: 'center'}}>
-              
-              <View style={styles.modalContainer}>
-
-                <Text style = {styles.modalTitle}>{this.state.pinSelected.title}</Text>
-
-                <Text style = {{color : 'white'}} onPress = {()=> {this.setState({visibleModal: false})}}>Close</Text>
-
-              </View>
-
-          </View>
-
-          </Modal>
-        </View>
+        <Modal style={[styles.modal, styles.modalMap]} position={"bottom"} ref = {"mapModal"}>
+            <Text style={styles.text}>{pinSelected.title}</Text>
+            <Text style = {styles.btn} onPress = {() => { this.handleClaim(this.state.indexSelected) } }>Claim</Text>
+        </Modal>
 
       </MapView>
 
@@ -137,4 +138,35 @@ const styles = StyleSheet.create({
     width : 100,
     margin : 0,
   },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  modalMap : {
+    height: 300,
+    backgroundColor:'rgb(44,48,63)', 
+    opacity:.60    
+  },
+
+  btn: {
+    margin: 10,
+    backgroundColor: "#3B5998",
+    color: "white",
+    padding: 10
+  },
+
+  btnModal: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: 50,
+    height: 50,
+    backgroundColor: "transparent"
+  },
+
+  text: {
+    color: "white",
+    fontSize: 22
+  }
 });

@@ -1,11 +1,18 @@
 import React from 'react'
 
-import { Text, TouchableHighlight, View,StyleSheet } from 'react-native'
+import {
+  Text, 
+  Image,
+  TouchableHighlight, 
+  View,
+  StyleSheet 
+} from 'react-native'
+
 import { MapView } from 'expo'
 
 import Modal from 'react-native-modalbox'
-import Slider from 'react-native-slider'
-// import Modal from 'react-native-modal'
+
+import { Col, Row, Grid } from "react-native-easy-grid"
 
 export default class Map extends React.Component {
 
@@ -80,16 +87,54 @@ export default class Map extends React.Component {
                       latitude : pin.latitude,
                       longitude : pin.longitude
                     }}
-                    title = { pin.title }
                     onPress = { () => { this._showModal(pin,{index}) } }
                     pinColor = 'FA8072'
                   />
               );               
         })}
-
+        
         <Modal style={[styles.modal, styles.modalMap]} position={"bottom"} ref = {"mapModal"}>
-            <Text style={styles.text}>{pinSelected.title}</Text>
-            <Text style = {styles.btn} onPress = {() => { this.handleClaim(this.state.indexSelected) } }>Claim</Text>
+            
+          <View style = {{flex : 1}} >
+            <Image source={require('../assets/images/minus64.png')} style={styles.minusStyle} /> 
+          </View>
+
+          <View style={{flex: 3,alignSelf : 'stretch'}}>    
+              <Grid>  
+                  <Col size = {2}>
+                    <View style = {{paddingLeft : 30,paddingTop : 15}}> 
+                      <Text style={styles.textTitle}>{pinSelected.title}</Text>  
+                    </View>
+
+                    <View style = {{marginTop : 20,paddingLeft : 30}}> 
+                      <Text style={{color : '#EEC449'}}>Rating(4.5)</Text>  
+                    </View>
+
+                  </Col>
+
+                  <Col size = {1} style = {{justifyContent: 'center',alignItems: 'center'}}>
+                      <Text style = {styles.pointModal}>15P</Text>
+                  </Col>
+              </Grid>
+
+          </View>
+
+        
+          <View style={{flex: 2}}>  
+            <Text style = {{color : 'white'}}>Ratchada 17 Ratchadaphisek Rd, Din Daeng, Bangkok 10400</Text>
+          </View>
+
+          <View style={{flex: 2}}>  
+            <Text 
+               style={styles.claimButton}
+               onPress = {() => { this.handleClaim(this.state.indexSelected) } }
+            >
+              Claim
+            </Text>
+
+          </View>
+             
+
         </Modal>
 
       </MapView>
@@ -100,6 +145,10 @@ export default class Map extends React.Component {
 
 const styles = StyleSheet.create({
 
+  minusStyle : {
+    width : 50,
+    height : 50
+  },
   modalContainer : {
     alignSelf: 'stretch',
     height: 350,
@@ -139,14 +188,14 @@ const styles = StyleSheet.create({
     margin : 0,
   },
   modal: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
 
   modalMap : {
     height: 300,
     backgroundColor:'rgb(44,48,63)', 
-    opacity:.60    
+    opacity:.8    
   },
 
   btn: {
@@ -164,9 +213,29 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "transparent"
   },
-
-  text: {
+  textTitle: {
+    fontWeight: 'bold',
     color: "white",
-    fontSize: 22
-  }
+    fontSize: 18
+  },
+  pointModal : {
+    fontSize : 60,
+    color : '#EEC449',
+    shadowColor: 'white', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: 5,
+    backgroundColor: 'transparent'    
+  },
+  claimButton: {
+    backgroundColor : '#F5318D',
+    fontSize: 20,
+    marginTop: 10,
+    paddingTop: 3,
+    height: 35,
+    width: 250,
+    borderRadius:50,
+    borderWidth: 1,
+    borderColor: '#F5318D',
+    color: 'white',
+    textAlign: 'center'
+  },
+
 });

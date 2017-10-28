@@ -126,7 +126,7 @@ class RedeemScreen extends Component {
               data={items}
               renderItem={this._renderItem}
               sliderWidth={BannerWidth}
-              itemWidth={100}
+              itemWidth={150}
             />
         </View>
 
@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
     },
     searchBox: {
       backgroundColor: '#262E46',
-      height: 40,
-      width: 250,
+      height: 50,
+      width: 300,
       marginTop: 20,
       marginBottom: 20,
       shadowColor: '#000',
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     },
     searchText: {
       fontSize: 14,
-      marginTop: 11,
+      marginTop: 16,
       marginLeft: 15,
       color: 'white'
     },

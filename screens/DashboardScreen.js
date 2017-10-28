@@ -4,7 +4,13 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar
+  StatusBar,
+  Dimensions,
+  Image,
+  ScrollView,
+  WebView,
+  Modal,
+  TouchableHighlight
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
@@ -12,6 +18,37 @@ import { connect } from 'react-redux'
 import { Font,Pedometer } from 'expo';
 import Pie from 'react-native-pie'
 import { Col, Row, Grid } from "react-native-easy-grid";
+import CarouselEvents from 'react-native-snap-carousel';
+
+const BannerWidth = Dimensions.get('window').width;
+const BannerHeight = 200;
+
+const items = [
+  {
+    img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
+    point: '1000 P'
+  },
+  {
+    img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
+    point: '1800 P'
+  },
+  {
+    img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
+    point: '20000 P'
+  },
+  {
+    img: "https://www.shutterstock.com/panorama/wp-content/uploads/2015/05/shutterstock_206406082-copy.jpg",
+    point: '1450 P'
+  },
+  {
+    img: "https://thumb9.shutterstock.com/display_pic_with_logo/234100/111362132/stock-photo-view-on-eiffel-tower-paris-france-111362132.jpg",
+    point: '1870 P'
+  },
+  {
+    img: "https://i.vimeocdn.com/video/487267641_1280x720.jpg",
+    point: '5630 P'
+  }
+]
 
 import { getStepCount,getUserPoint } from '../action.js'
 
@@ -22,7 +59,9 @@ class DashboardScreen extends Component {
     isPedometerAvailable: "checking",
     pastStepCount: 0,
     currentStepCount: 0,
-    score : 0  
+    score: 0,
+    count: 0,
+    modalVisible: false
   }
 
   componentDidMount() {
@@ -78,13 +117,25 @@ class DashboardScreen extends Component {
     );
   };
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
   _unsubscribe = () => {
     this._subscription && this._subscription.remove();
     this._subscription = null;
   };
 
-  handleChange(){
+  handleChange() {
     console.log("change")
+  }
+
+  _renderItem({ item, index }) {
+    return (
+      <View style={styles.slide}>
+        <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
+      </View>
+    );
   }
 
   render() {
@@ -92,13 +143,14 @@ class DashboardScreen extends Component {
     const { dispatch } = this.props
 
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <StatusBar
           backgroundColor="blue"
           barStyle="light-content"
         />
         <View style={styles.card1}>
-          <Text style={styles.textstyle}>MY POINTS: {this.props.totalPoint} </Text>
+          <Text style={styles.myPointTextstyle}>MY POINTS: <Text style={styles.scoreTextStyle}>{this.props.totalPoint}</Text></Text>
+          {/* <Text>Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable} </Text> */}
         </View>
 
         <View style={styles.card2}>
@@ -107,7 +159,7 @@ class DashboardScreen extends Component {
             <Pie
               radius={100}
               innerRadius={86}
-              series={[this.state.currentStepCount*100/8000]}
+              series={[this.state.currentStepCount * 100 / 8000]}
               colors={['#F5318D']}
               backgroundColor='#364060'
             />
@@ -116,14 +168,69 @@ class DashboardScreen extends Component {
               <Text style={styles.gaugeText}>{this.state.currentStepCount} steps</Text>
             </View>
           </View>
-          <Grid style={{marginTop: 10}}>
+          <Grid style={{ marginTop: 10 }}>
             <Col><Text style={styles.statHead}>Hi1</Text></Col>
             <Col><Text style={styles.statHead}>Hi2</Text></Col>
           </Grid>
 
           {/* <Text onPress = {() => this.setState({count : this.state.count+1})}>Count++</Text> */}
         </View>
-      </View>
+
+        <View style={{ alignItems: 'stretch', width: 300, marginTop: 20 }}>
+          <View>
+            <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold', textAlign: 'left' }}>EVENTS</Text>
+          </View>
+        </View>
+        <View style={{ marginTop: 10, marginBottom: 30 }}>
+          <CarouselEvents
+            ref={(c) => { this._carousel = c; }}
+            data={items}
+            renderItem={this._renderItem}
+            sliderWidth={BannerWidth}
+            itemWidth={150}
+          />
+        </View>
+        <WebView
+          source={{ uri: 'https://github.com/facebook/react-native' }}
+          style={{ flex:1 }}
+        />
+
+        <Button
+            style={styles.paragraph}
+            title="Open WebBrowser"
+            onPress={this._handlePressButtonAsync}
+          />
+
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => { alert("Modal has been closed.") }}
+        >
+          <View style={{ marginTop: 22 }}>
+            <View>
+              <WebView
+                source={{ uri: 'https://github.com/facebook/react-native' }}
+                style={{ marginTop: 20 }}
+              />
+
+              <TouchableHighlight onPress={() => {
+                this.setModalVisible(!this.state.modalVisible)
+              }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+
+            </View>
+          </View>
+        </Modal>
+
+        <TouchableHighlight onPress={() => {
+          this.setModalVisible(true)
+        }}>
+          <Text>Show Modal</Text>
+        </TouchableHighlight>
+
+      </ScrollView>
     );
   }
 
@@ -136,37 +243,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#262d47',
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 10,
-    width: 250,
+    width: 300,
     height: 80,
-    margin: 10,
+    marginTop: 20,
   },
   card2: {
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#262d47',
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 10,
-    width: 250,
+    width: 300,
     height: 330,
-    margin: 10,
+    marginTop: 20,
   },
   container: {
-    flex: 1,
     alignItems: 'center',
     backgroundColor: '#171C2F',
   },
-  textstyle: {
+  myPointTextstyle: {
     fontSize: 20,
-    textAlign: 'center',
     margin: 10,
-    color: '#F5318D'
+    color: 'white'
+  },
+  scoreTextStyle: {
+    fontSize: 30,
+    color: '#F72582',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    shadowColor: '#F72582',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 3,
+    paddingLeft: 70
   },
   todayText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 20,
     backgroundColor: 'transparent',
     marginBottom: 20,
-    marginTop: 20,
-    shadowColor: 'white', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.5, shadowRadius: 5,
+    marginTop: 20
   },
   gauge: {
     position: 'absolute',
@@ -178,10 +294,9 @@ const styles = StyleSheet.create({
   gaugeText: {
     backgroundColor: 'transparent',
     color: '#000',
-    fontSize: 14,
+    fontSize: 17,
     fontWeight: 'bold',
     color: 'white',
-    shadowColor: 'white', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.5, shadowRadius: 5,
   },
   gaugeGoal: {
     color: '#364069',
@@ -192,9 +307,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
-    shadowColor: 'white', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: 5,
     backgroundColor: 'transparent'
-  }
+  },
+  slide: {
+    height: 150,
+    width: 150,
+    backgroundColor: 'transparent'
+  },
 });
 
 

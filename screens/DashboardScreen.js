@@ -8,9 +8,13 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
+import { connect } from 'react-redux'
 import { Font,Pedometer } from 'expo';
 import Pie from 'react-native-pie'
 import { Col, Row, Grid } from "react-native-easy-grid";
+
+import { getStepCount,getUserPoint } from '../action.js'
+
 
 class DashboardScreen extends Component {
 
@@ -18,8 +22,7 @@ class DashboardScreen extends Component {
     isPedometerAvailable: "checking",
     pastStepCount: 0,
     currentStepCount: 0,
-    score : 0,
-    count : 0
+    score : 0  
   }
 
   componentDidMount() {
@@ -31,18 +34,22 @@ class DashboardScreen extends Component {
   }
 
   _subscribe = () => {
+
+    const { dispatch } = this.props
+    
     this._subscription = Pedometer.watchStepCount(result => {
-      //console.log(this.state.currentStepCount)
-      const score = Math.floor(result.steps/10)
-      const currentStep = result.steps 
+      
+      dispatch(getStepCount(result.steps))
+      dispatch(getUserPoint(Math.floor(result.steps/10)))
+      
+      // const currentStep = this.props.currentStep
+      // const score = this.props.userPoint
 
       this.setState({
-        score : score,       
-        currentStepCount: currentStep
+        score : this.props.userPoint,       
+        currentStepCount: this.props.currentStep
       });
     });
-
-   // console.log("count = "+this.state.currentStepCount)
 
     Pedometer.isAvailableAsync().then(
       result => {
@@ -82,6 +89,9 @@ class DashboardScreen extends Component {
   }
 
   render() {
+    
+    const {dispatch} = this.props
+
     return (
       <View style={styles.container}>
         <StatusBar
@@ -89,8 +99,7 @@ class DashboardScreen extends Component {
           barStyle="light-content"
         />
         <View style={styles.card1}>
-          <Text style={styles.textstyle}>MY POINTS: {this.state.score}</Text>
-          {/* <Text>Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable} </Text> */}
+          <Text style={styles.textstyle}>MY POINTS: {this.state.score} </Text>
         </View>
 
         <View style={styles.card2}>
@@ -189,4 +198,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DashboardScreen
+const mapStateToProps = (state) => state
+
+export default connect(mapStateToProps)(DashboardScreen)

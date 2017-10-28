@@ -6,6 +6,9 @@ import {
   Image,
   View
 } from 'react-native';
+import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
+import store from './store.js';
 
 import { Router,Scene } from 'react-native-router-flux'
 
@@ -13,24 +16,10 @@ import DashboardScreen from './screens/DashboardScreen.js'
 import CheckinScreen from './screens/CheckinScreen.js'
 import RedeemScreen from './screens/RedeemScreen.js'
 import UserScreen from './screens/UserScreen.js'
-
-
 import BlueScreen from './screens/BlueScreen.js'
 import LoginScreen from './screens/LoginScreen.js'
 import BlackScreen from './screens/BlackScreen.js'
 
-
-// class TabIcon extends Component {
-//   render(){
-
-//       console.log(this.props)
-//       return (
-//         <Image 
-//           source={require('./images/profiles.png')}
-//         />
-//       );
-//   }
-// }
 
 const TabIcon = ({ focused, title }) => {
 
@@ -82,6 +71,9 @@ const TabIcon = ({ focused, title }) => {
 const App = () => {
 
     return (
+      
+    <Provider store = {store}>
+      
       <Router>
 
         <Scene key = "root">
@@ -176,7 +168,8 @@ const App = () => {
 
         </Scene>
       </Router>
-
+    
+      </Provider>
 
     );
   

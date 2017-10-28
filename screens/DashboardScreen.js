@@ -8,11 +8,78 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
-import { Font } from 'expo';
+import { Font,Pedometer } from 'expo';
 import Pie from 'react-native-pie'
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class DashboardScreen extends Component {
+
+  state = {
+    isPedometerAvailable: "checking",
+    pastStepCount: 0,
+    currentStepCount: 0,
+    score : 0,
+    count : 0
+  }
+
+  componentDidMount() {
+    this._subscribe();
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  _subscribe = () => {
+    this._subscription = Pedometer.watchStepCount(result => {
+      //console.log(this.state.currentStepCount)
+      const score = Math.floor(result.steps/10)
+      const currentStep = result.steps 
+
+      this.setState({
+        score : score,       
+        currentStepCount: currentStep
+      });
+    });
+
+   // console.log("count = "+this.state.currentStepCount)
+
+    Pedometer.isAvailableAsync().then(
+      result => {
+        this.setState({
+          isPedometerAvailable: String(result)
+        });
+      },
+      error => {
+        this.setState({
+          isPedometerAvailable: "Could not get isPedometerAvailable: " + error
+        });
+      }
+    );
+
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - 1);
+    Pedometer.getStepCountAsync(start, end).then(
+      result => {
+        this.setState({ pastStepCount: result.steps });
+      },
+      error => {
+        this.setState({
+          pastStepCount: "Could not get stepCount: " + error
+        });
+      }
+    );
+  };
+
+  _unsubscribe = () => {
+    this._subscription && this._subscription.remove();
+    this._subscription = null;
+  };
+
+  handleChange(){
+    console.log("change")
+  }
 
   render() {
     return (
@@ -22,7 +89,8 @@ class DashboardScreen extends Component {
           barStyle="light-content"
         />
         <View style={styles.card1}>
-          <Text style={styles.textstyle}>MY POINTS: 100000</Text>
+          <Text style={styles.textstyle}>MY POINTS: {this.state.score}</Text>
+          {/* <Text>Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable} </Text> */}
         </View>
 
         <View style={styles.card2}>
@@ -31,19 +99,21 @@ class DashboardScreen extends Component {
             <Pie
               radius={100}
               innerRadius={86}
-              series={[80]}
+              series={[this.state.currentStepCount*100/8000]}
               colors={['#F5318D']}
               backgroundColor='#364060'
             />
             <View style={styles.gauge}>
               <Text style={styles.gaugeGoal}>Goal: 8000</Text>
-              <Text style={styles.gaugeText}>5024 steps</Text>
+              <Text style={styles.gaugeText}>{this.state.currentStepCount} steps</Text>
             </View>
           </View>
           <Grid style={{marginTop: 10}}>
             <Col><Text style={styles.statHead}>Hi1</Text></Col>
             <Col><Text style={styles.statHead}>Hi2</Text></Col>
           </Grid>
+
+          {/* <Text onPress = {() => this.setState({count : this.state.count+1})}>Count++</Text> */}
         </View>
       </View>
     );

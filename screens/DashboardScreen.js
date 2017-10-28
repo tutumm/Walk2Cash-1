@@ -33,10 +33,12 @@ class DashboardScreen extends Component {
   _subscribe = () => {
     this._subscription = Pedometer.watchStepCount(result => {
       //console.log(this.state.currentStepCount)
-       
+      const score = Math.floor(result.steps/10)
+      const currentStep = result.steps 
+
       this.setState({
-        score : Math.floor(this.state.currentStepCount/10),       
-        currentStepCount: result.steps
+        score : score,       
+        currentStepCount: currentStep
       });
     });
 

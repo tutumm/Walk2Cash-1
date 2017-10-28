@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import { MapView } from 'expo'
-
+import axios from 'axios'
 import Modal from 'react-native-modalbox'
 
 import { Col, Row, Grid } from "react-native-easy-grid"
@@ -18,23 +18,24 @@ export default class Map extends React.Component {
 
   state = {
     visibleModal: false,
-    customPins : [
-      {
-        latitude : 13.786916,
-        longitude : 100.572402,
-        title : 'The Kris Condominium'
-      },
-      {
-        latitude :  13.786783,
-        longitude : 100.574638,
-        title : 'Muang Thai Life Assurance'
-      },
-      {
-        latitude : 13.652554,
-        longitude : 100.491527,
-        title : 'Thonburirom Park'
-      }
-    ],
+    customPins : [],
+    // customPins : [
+    //   {
+    //     latitude : 13.786916,
+    //     longitude : 100.572402,
+    //     title : 'The Kris Condominium'
+    //   },
+    //   {
+    //     latitude :  13.786783,
+    //     longitude : 100.574638,
+    //     title : 'Muang Thai Life Assurance'
+    //   },
+    //   {
+    //     latitude : 13.652554,
+    //     longitude : 100.491527,
+    //     title : 'Thonburirom Park'
+    //   }
+    // ],
     pinSelected : {
       
     },
@@ -43,6 +44,22 @@ export default class Map extends React.Component {
     isDisabled: false,
     swipeToClose: true
   }
+
+
+  componentDidMount(){
+
+    fetch('https://fb69ac76.ngrok.io/maps')
+     .then((response) => response.json())
+     .then((responseJson) => {
+        this.setState({customPins: responseJson})
+        return responseJson
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+
+  }
+
 
   _showModal(pin,index){
 

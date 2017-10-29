@@ -27,27 +27,27 @@ const BannerHeight = 200;
 const items = [
   {
     img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
-    point: '1000 P'
+    url: 'https://www.facebook.com/events/128699921105395/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
   },
   {
     img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
-    point: '1800 P'
+    url: 'https://www.facebook.com/events/1409939899103453/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
   },
   {
     img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
-    point: '20000 P'
+    url: 'https://www.facebook.com/events/164100520840969/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_invitation%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
   },
   {
-    img: "https://www.shutterstock.com/panorama/wp-content/uploads/2015/05/shutterstock_206406082-copy.jpg",
-    point: '1450 P'
+    img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
+    url: 'https://www.facebook.com/events/128699921105395/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
   },
   {
-    img: "https://thumb9.shutterstock.com/display_pic_with_logo/234100/111362132/stock-photo-view-on-eiffel-tower-paris-france-111362132.jpg",
-    point: '1870 P'
+    img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
+    url: 'https://www.facebook.com/events/1409939899103453/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
   },
   {
-    img: "https://i.vimeocdn.com/video/487267641_1280x720.jpg",
-    point: '5630 P'
+    img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
+    url: 'https://www.facebook.com/events/164100520840969/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_invitation%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
   }
 ]
 
@@ -132,19 +132,10 @@ class DashboardScreen extends Component {
 
   _renderItem({ item, index }) {
     return (
-      <TouchableHighlight onPress={() => this.handlePressAsync} style={styles.slide}>
+      <TouchableHighlight style={styles.slide} onPress={ () => WebBrowser.openBrowserAsync(item.url) }>
           <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
       </TouchableHighlight>
     );
-  }
-
-  // _handlePressButtonAsync = async () => {
-  //   console.log('Pressed')
-  //   await WebBrowser.openBrowserAsync('https://expo.io');
-  // };
-
-  handlePressAsync = (text) => {
-    console.log(text)
   }
 
   render() {

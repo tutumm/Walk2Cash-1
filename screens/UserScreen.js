@@ -11,7 +11,9 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { BarChart } from 'react-native-charts'
 
-
+onPressLearnMore = () => {
+  
+}
 
 class UserScreen extends Component {
 

@@ -10,15 +10,16 @@ import {
   ScrollView,
   WebView,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  Button
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
-import { Font,Pedometer } from 'expo';
+import { Font, Pedometer, WebBrowser } from 'expo'
 import Pie from 'react-native-pie'
-import { Col, Row, Grid } from "react-native-easy-grid";
-import CarouselEvents from 'react-native-snap-carousel';
+import { Col, Row, Grid } from "react-native-easy-grid"
+import CarouselEvents from 'react-native-snap-carousel'
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 200;
@@ -80,8 +81,8 @@ class DashboardScreen extends Component {
 
       dispatch(getStepCount(result.steps))
       dispatch(getUserPoint(Math.floor(result.steps/10)))
-      
       const currentScore = this.props.totalPoint
+      const score = Math.floor(result.steps / 10)
 
       this.setState({
         score : currentScore,       
@@ -132,10 +133,19 @@ class DashboardScreen extends Component {
 
   _renderItem({ item, index }) {
     return (
-      <View style={styles.slide}>
-        <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
-      </View>
+      <TouchableHighlight onPress={() => this.handlePressAsync} style={styles.slide}>
+          <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
+      </TouchableHighlight>
     );
+  }
+
+  // _handlePressButtonAsync = async () => {
+  //   console.log('Pressed')
+  //   await WebBrowser.openBrowserAsync('https://expo.io');
+  // };
+
+  handlePressAsync = (text) => {
+    console.log(text)
   }
 
   render() {
@@ -150,7 +160,6 @@ class DashboardScreen extends Component {
         />
         <View style={styles.card1}>
           <Text style={styles.myPointTextstyle}>MY POINTS: <Text style={styles.scoreTextStyle}>{this.props.totalPoint}</Text></Text>
-          {/* <Text>Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable} </Text> */}
         </View>
 
         <View style={styles.card2}>
@@ -172,8 +181,6 @@ class DashboardScreen extends Component {
             <Col><Text style={styles.statHead}>Hi1</Text></Col>
             <Col><Text style={styles.statHead}>Hi2</Text></Col>
           </Grid>
-
-          {/* <Text onPress = {() => this.setState({count : this.state.count+1})}>Count++</Text> */}
         </View>
 
         <View style={{ alignItems: 'stretch', width: 300, marginTop: 20 }}>
@@ -181,6 +188,7 @@ class DashboardScreen extends Component {
             <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold', textAlign: 'left' }}>EVENTS</Text>
           </View>
         </View>
+
         <View style={{ marginTop: 10, marginBottom: 30 }}>
           <CarouselEvents
             ref={(c) => { this._carousel = c; }}
@@ -190,46 +198,6 @@ class DashboardScreen extends Component {
             itemWidth={150}
           />
         </View>
-        <WebView
-          source={{ uri: 'https://github.com/facebook/react-native' }}
-          style={{ flex:1 }}
-        />
-
-        <Button
-            style={styles.paragraph}
-            title="Open WebBrowser"
-            onPress={this._handlePressButtonAsync}
-          />
-
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => { alert("Modal has been closed.") }}
-        >
-          <View style={{ marginTop: 22 }}>
-            <View>
-              <WebView
-                source={{ uri: 'https://github.com/facebook/react-native' }}
-                style={{ marginTop: 20 }}
-              />
-
-              <TouchableHighlight onPress={() => {
-                this.setModalVisible(!this.state.modalVisible)
-              }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-
-            </View>
-          </View>
-        </Modal>
-
-        <TouchableHighlight onPress={() => {
-          this.setModalVisible(true)
-        }}>
-          <Text>Show Modal</Text>
-        </TouchableHighlight>
-
       </ScrollView>
     );
   }

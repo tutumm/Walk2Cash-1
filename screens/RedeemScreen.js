@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import Carousel from 'react-native-banner-carousel'
-import CarouselJustForYou from 'react-native-snap-carousel';
+import CarouselJustForYou from 'react-native-snap-carousel'
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 200;
@@ -25,27 +25,33 @@ const images = [
 ];
 
 const items = [
-  {
+  { 
+    name: '1',
     img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
     point: '1000 P'
   },
   {
+    name: '2',
     img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
     point: '1800 P'
   },
   {
+    name: '3',
     img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
     point: '20000 P'
   },
   {
+    name: '4',
     img: "https://www.shutterstock.com/panorama/wp-content/uploads/2015/05/shutterstock_206406082-copy.jpg",
     point: '1450 P'
   },
   {
+    name: '5',
     img: "https://thumb9.shutterstock.com/display_pic_with_logo/234100/111362132/stock-photo-view-on-eiffel-tower-paris-france-111362132.jpg",
     point: '1870 P'
   },
   {
+    name: '6',
     img: "https://i.vimeocdn.com/video/487267641_1280x720.jpg",
     point: '5630 P'
   }
@@ -69,8 +75,13 @@ class RedeemScreen extends Component {
   }
 
   _renderItem({ item, index }) {
+    const productDetail = {
+      name: item.name,
+      img: item.img,
+      point: item.point
+    }
     return (
-      <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail()}>
+      <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail({productDetail: productDetail})}>
         <View>
           <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
           <Text style={styles.point}>{item.point}</Text>
@@ -78,7 +89,6 @@ class RedeemScreen extends Component {
       </TouchableHighlight>
     );
   }
-
 
   renderCategory (category, index){
     return (
@@ -89,7 +99,8 @@ class RedeemScreen extends Component {
   }
 
   state = {
-    searchVoucher: ''
+    searchVoucher: '',
+    tum: 'Tum'
   }
 
   render(){

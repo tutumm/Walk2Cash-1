@@ -149,7 +149,7 @@ const App = () => {
                   <Scene 
                     key = "productDetail"
                     component = {ProductDetail}
-                    title = "Detail"
+                    title = "DETAIL"
                     hideNavBar= {false}
                   />
 

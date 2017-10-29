@@ -8,7 +8,8 @@ import {
   Image,
   Dimensions,
   TextInput,
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import Carousel from 'react-native-banner-carousel'
@@ -67,14 +68,17 @@ class RedeemScreen extends Component {
     );
   }
 
-  _renderItem ({item, index}) {
+  _renderItem({ item, index }) {
     return (
-        <View style={styles.slide}>
-            <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
-            <Text style={styles.point}>{item.point}</Text>
+      <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail()}>
+        <View>
+          <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
+          <Text style={styles.point}>{item.point}</Text>
         </View>
+      </TouchableHighlight>
     );
   }
+
 
   renderCategory (category, index){
     return (
@@ -118,6 +122,7 @@ class RedeemScreen extends Component {
 
         <View style={styles.justForYouText}>
           <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Just For You</Text>
+          <Text onPress={() => Actions.productDetail()}>Go To Product Screen</Text>
         </View>
 
         <View style={{height: 190}}>

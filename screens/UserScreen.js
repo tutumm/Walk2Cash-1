@@ -11,10 +11,6 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { BarChart } from 'react-native-charts'
 
-onPressLearnMore = () => {
-  
-}
-
 class UserScreen extends Component {
 
   state = {
@@ -170,8 +166,6 @@ class UserScreen extends Component {
                       accessibilityLabel="year"
                     />
             </View>
-              
-
              <View>
                 {this.showGraph()}
               </View>

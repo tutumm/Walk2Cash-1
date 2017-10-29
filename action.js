@@ -16,4 +16,10 @@ const getUserPoint = (score) => {
 }   
     
 
-export { getStepCount,getUserPoint }   
+const getBonusPoint = (score) => {
+    return (dispatch) => {
+        dispatch( { type : 'ADD_USER_BONUS_POINT',payload : { score : score }})
+    }
+}
+
+export { getStepCount,getUserPoint,getBonusPoint }   

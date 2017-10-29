@@ -152,26 +152,28 @@ class UserScreen extends Component {
                <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold',margin:15}}>Salmon Norway</Text>
 
                <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-                {/* <Button style={styles.buttontab}
-                  onPress={onPressLearnMore} 
-                  title="Day"
-                  accessibilityLabel="day"
-                />
-                <Button style={styles.buttontab}
-                  onPress={onPressLearnMore} 
-                  title="Month"
-                  accessibilityLabel="month"
-                />
-                <Button style={styles.buttontab}
-                  onPress={onPressLearnMore} 
-                  title="Year"
-                  accessibilityLabel="year"
-                /> */}
-               </View>
+                      <Button style={styles.buttontab}
+                      onPress={this.onPressDay}
+                      title="Day"
+                      accessibilityLabel="day"
+                    />
+                    <Button style={styles.buttontab}
+                      onPress={this.onPressMonth}
+                      title="Month"
+                      accessibilityLabel="month"
+                    />
+                    <Button style={styles.buttontab}
+                      onPress={this.onPressYear}
+                      title="Year"
+                      accessibilityLabel="year"
+                    />
+            </View>
+              
 
-             <View >
+             <View>
                 {this.showGraph()}
               </View>
+
          </View>
         );
 
@@ -193,19 +195,3 @@ const styles = StyleSheet.create({
   });
   
   export default UserScreen
-               <Button style={styles.buttontab}
-               onPress={this.onPressDay}
-               title="Day"
-               accessibilityLabel="day"
-             />
-             <Button style={styles.buttontab}
-               onPress={this.onPressMonth}
-               title="Month"
-               accessibilityLabel="month"
-             />
-             <Button style={styles.buttontab}
-               onPress={this.onPressYear}
-               title="Year"
-               accessibilityLabel="year"
-             />
-            </View>

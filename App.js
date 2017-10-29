@@ -13,6 +13,7 @@ import store from './store.js';
 import { Router,Scene } from 'react-native-router-flux'
 
 import DashboardScreen from './screens/DashboardScreen.js'
+import ProductDetail from './screens/ProductDetail.js'
 import CheckinScreen from './screens/CheckinScreen.js'
 import RedeemScreen from './screens/RedeemScreen.js'
 import UserScreen from './screens/UserScreen.js'
@@ -143,6 +144,13 @@ const App = () => {
                     component = {RedeemScreen}
                     title = "VOUCHER REDEEM"
                     hideNavBar={false}
+                  />
+
+                  <Scene 
+                    key = "productDetail"
+                    component = {ProductDetail}
+                    title = "Detail"
+                    hideNavBar= {false}
                   />
 
             </Scene>

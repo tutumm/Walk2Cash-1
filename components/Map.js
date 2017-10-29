@@ -9,33 +9,19 @@ import {
 } from 'react-native'
 
 import { MapView } from 'expo'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import Modal from 'react-native-modalbox'
-
 import { Col, Row, Grid } from "react-native-easy-grid"
 
-export default class Map extends React.Component {
+import { getBonusPoint } from '../action.js'
+
+
+class Map extends React.Component {
 
   state = {
     visibleModal: false,
     customPins : [],
-    // customPins : [
-    //   {
-    //     latitude : 13.786916,
-    //     longitude : 100.572402,
-    //     title : 'The Kris Condominium'
-    //   },
-    //   {
-    //     latitude :  13.786783,
-    //     longitude : 100.574638,
-    //     title : 'Muang Thai Life Assurance'
-    //   },
-    //   {
-    //     latitude : 13.652554,
-    //     longitude : 100.491527,
-    //     title : 'Thonburirom Park'
-    //   }
-    // ],
     pinSelected : {
       
     },
@@ -72,6 +58,9 @@ export default class Map extends React.Component {
 
 
   handleClaim(index){
+
+    const { dispatch } = this.props
+    dispatch(getBonusPoint(15))
     const { customPins } = this.state
     const i = index.index 
     customPins.splice(i,1)
@@ -81,7 +70,7 @@ export default class Map extends React.Component {
     })
 
     this.refs.mapModal.close()
-    
+
   }
 
   render() {
@@ -256,3 +245,7 @@ const styles = StyleSheet.create({
   },
 
 });
+
+const mapStateToProps = (state) => state
+
+export default connect(mapStateToProps)(Map)

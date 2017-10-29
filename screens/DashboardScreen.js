@@ -78,7 +78,6 @@ class DashboardScreen extends Component {
     const { dispatch } = this.props
     
     this._subscription = Pedometer.watchStepCount(result => {
-
       dispatch(getStepCount(result.steps))
       dispatch(getUserPoint(Math.floor(result.steps/10)))
       const currentScore = this.props.totalPoint

@@ -38,15 +38,14 @@ class DashboardScreen extends Component {
     const { dispatch } = this.props
     
     this._subscription = Pedometer.watchStepCount(result => {
-      
+
       dispatch(getStepCount(result.steps))
       dispatch(getUserPoint(Math.floor(result.steps/10)))
       
-      // const currentStep = this.props.currentStep
-      // const score = this.props.userPoint
+      const currentScore = this.props.totalPoint
 
       this.setState({
-        score : this.props.userPoint,       
+        score : currentScore,       
         currentStepCount: this.props.currentStep
       });
     });
@@ -90,7 +89,7 @@ class DashboardScreen extends Component {
 
   render() {
     
-    const {dispatch} = this.props
+    const { dispatch } = this.props
 
     return (
       <View style={styles.container}>
@@ -99,7 +98,7 @@ class DashboardScreen extends Component {
           barStyle="light-content"
         />
         <View style={styles.card1}>
-          <Text style={styles.textstyle}>MY POINTS: {this.state.score} </Text>
+          <Text style={styles.textstyle}>MY POINTS: {this.props.totalPoint} </Text>
         </View>
 
         <View style={styles.card2}>
@@ -197,6 +196,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   }
 });
+
 
 const mapStateToProps = (state) => state
 

@@ -9,20 +9,137 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
-import { VictoryBar } from "victory-native";
+import { BarChart } from 'react-native-charts'
 
 
-
-const data = [[
-  [0, 1],
-  [1, 3],
-  [3, 7],
-  [4, 9],
-]];
 
 class UserScreen extends Component {
 
+  state = {
+    view : -1
+  }
 
+  onPressDay = () => {
+    this.setState({
+      view : 0,
+    
+    })
+  }
+  onPressMonth = () => {
+    this.setState({
+      view : 1,
+      
+    })
+  }
+  onPressYear = () => {
+    this.setState({
+      view : 2,
+      
+    })
+  }
+
+
+  showGraph = () =>{
+    if (this.state.view==0){
+     return (
+      <BarChart
+      dataSets={[
+      { 
+        fillColor: '#F5318D', 
+        data: [
+          { value: 15 },
+          { value: 10 },
+          { value: 12 },
+          { value: 11 },
+          { value: 15 },
+          { value: 10 },
+          { value: 12 }
+        ]
+      }
+    ]}
+      graduation={1}
+      horizontal={false}
+      showGrid={false}
+      barSpacing={5}
+      style={{
+        height: 200,
+        margin: 15,
+        width: 300
+      }}/>
+     )
+    }else if(this.state.view==1){
+      return (
+        <BarChart
+        dataSets={[
+        { 
+          fillColor: '#F5318D', 
+          data: [
+            { value: 15 },
+            { value: 10 },
+            { value: 12 },
+            { value: 10 },
+            { value: 12 },
+            { value: 11 },
+            { value: 11 },
+            { value: 15 },
+            { value: 10 },
+            { value: 12 },
+            { value: 11 },
+            { value: 11 },
+            { value: 15 },
+            { value: 10 },
+            { value: 12 },
+
+          ]
+        }
+      ]}
+        graduation={1}
+        horizontal={false}
+        showGrid={false}
+        barSpacing={5}
+        style={{
+          height: 200,
+          margin: 15,
+          width: 300
+        }}/>
+      )
+    }else if(this.state.view==2){
+      return (
+        <BarChart
+        dataSets={[
+        { 
+          fillColor: '#F5318D', 
+          data: [
+            { value: 15 },
+            { value: 10 },
+            { value: 12 },
+            { value: 11 },
+            { value: 15 },
+            { value: 10 },
+            { value: 12 },
+            { value: 11 },
+            { value: 15 },
+            { value: 12 },
+            { value: 11 },
+            { value: 15 },
+
+          ]
+        }
+      ]}
+        graduation={1}
+        horizontal={false}
+        showGrid={false}
+        barSpacing={5}
+        style={{
+          height: 200,
+          margin: 15,
+          width: 300
+        }}/>
+      )
+    }
+    
+
+  }
 
     render() {
         
@@ -33,30 +150,29 @@ class UserScreen extends Component {
                  source={{uri: 'https://www.tkgourmet.com/v/vspfiles/photos/3-salmonnorway-2.jpg'}}
                /> 
                <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold',margin:15}}>Salmon Norway</Text>
-               
+
                <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                <Button style={styles.buttontab}
-               /* onPress={onPressLearnMore} */
+               onPress={this.onPressDay}
                title="Day"
                accessibilityLabel="day"
              />
              <Button style={styles.buttontab}
-               /* onPress={onPressLearnMore} */
+               onPress={this.onPressMonth}
                title="Month"
                accessibilityLabel="month"
              />
              <Button style={styles.buttontab}
-               /* onPress={onPressLearnMore} */
+               onPress={this.onPressYear}
                title="Year"
                accessibilityLabel="year"
              />
-               </View>
-
-             
-            <VictoryBar />
-    
-
             </View>
+
+             <View >
+                {this.showGraph()}
+              </View>
+         </View>
         );
 
     }
@@ -67,10 +183,7 @@ const styles = StyleSheet.create({
     buttontab: {
         color :"#F5318D"
     },
-    chart: {
-		width: 200,
-		height: 200,
-	},
+    
     container: {
       flex: 1,
       justifyContent: 'center',

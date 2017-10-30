@@ -13,7 +13,9 @@ import { Actions } from 'react-native-router-flux'
 import { BarChart } from 'react-native-charts'
 import Pie from 'react-native-pie'
 
+onPressLearnMore = () => {
 
+}
 
 class UserScreen extends Component {
 
@@ -164,6 +166,24 @@ class UserScreen extends Component {
                  source={{uri: 'https://www.tkgourmet.com/v/vspfiles/photos/3-salmonnorway-2.jpg'}}
                /> 
                <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold',margin:15}}>Salmon Norway</Text>
+               
+               <View style={{flexDirection:'row', flexWrap:'wrap'}}>
+               <Button style={styles.buttontab}
+               onPress={onPressLearnMore}
+               title="Day"
+               accessibilityLabel="day"
+             />
+             <Button style={styles.buttontab}
+               onPress={onPressLearnMore}
+               title="Month"
+               accessibilityLabel="month"
+             />
+             <Button style={styles.buttontab}
+               onPress={onPressLearnMore}
+               title="Year"
+               accessibilityLabel="year"
+             />
+               </View>
 
                <Text style={styles.textstyle}>MY POINTS: {this.props.totalPoint} </Text>
 

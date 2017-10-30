@@ -8,11 +8,12 @@ import {
   Image,
   Dimensions,
   TextInput,
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import Carousel from 'react-native-banner-carousel'
-import CarouselJustForYou from 'react-native-snap-carousel';
+import CarouselJustForYou from 'react-native-snap-carousel'
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 200;
@@ -24,27 +25,33 @@ const images = [
 ];
 
 const items = [
-  {
+  { 
+    name: '1',
     img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
     point: '1000 P'
   },
   {
+    name: '2',
     img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
     point: '1800 P'
   },
   {
+    name: '3',
     img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
     point: '20000 P'
   },
   {
+    name: '4',
     img: "https://www.shutterstock.com/panorama/wp-content/uploads/2015/05/shutterstock_206406082-copy.jpg",
     point: '1450 P'
   },
   {
+    name: '5',
     img: "https://thumb9.shutterstock.com/display_pic_with_logo/234100/111362132/stock-photo-view-on-eiffel-tower-paris-france-111362132.jpg",
     point: '1870 P'
   },
   {
+    name: '6',
     img: "https://i.vimeocdn.com/video/487267641_1280x720.jpg",
     point: '5630 P'
   }
@@ -67,12 +74,19 @@ class RedeemScreen extends Component {
     );
   }
 
-  _renderItem ({item, index}) {
+  _renderItem({ item, index }) {
+    const productDetail = {
+      name: item.name,
+      img: item.img,
+      point: item.point
+    }
     return (
-        <View style={styles.slide}>
-            <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
-            <Text style={styles.point}>{item.point}</Text>
+      <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail({productDetail: productDetail})}>
+        <View>
+          <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
+          <Text style={styles.point}>{item.point}</Text>
         </View>
+      </TouchableHighlight>
     );
   }
 
@@ -85,7 +99,8 @@ class RedeemScreen extends Component {
   }
 
   state = {
-    searchVoucher: ''
+    searchVoucher: '',
+    tum: 'Tum'
   }
 
   render(){
@@ -118,6 +133,7 @@ class RedeemScreen extends Component {
 
         <View style={styles.justForYouText}>
           <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Just For You</Text>
+          <Text onPress={() => Actions.productDetail()}>Go To Product Screen</Text>
         </View>
 
         <View style={{height: 190}}>
@@ -126,7 +142,7 @@ class RedeemScreen extends Component {
               data={items}
               renderItem={this._renderItem}
               sliderWidth={BannerWidth}
-              itemWidth={100}
+              itemWidth={150}
             />
         </View>
 
@@ -155,8 +171,8 @@ const styles = StyleSheet.create({
     },
     searchBox: {
       backgroundColor: '#262E46',
-      height: 40,
-      width: 250,
+      height: 50,
+      width: 300,
       marginTop: 20,
       marginBottom: 20,
       shadowColor: '#000',
@@ -166,7 +182,7 @@ const styles = StyleSheet.create({
     },
     searchText: {
       fontSize: 14,
-      marginTop: 11,
+      marginTop: 16,
       marginLeft: 15,
       color: 'white'
     },

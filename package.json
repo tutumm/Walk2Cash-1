@@ -25,6 +25,7 @@
     "react-native": "^0.48.4",
     "react-native-banner-carousel": "^1.0.2",
     "react-native-chart": "^1.0.8-beta",
+    "react-native-charts": "^3.0.0",
     "react-native-charts-wrapper": "^0.2.10",
     "react-native-easy-grid": "^0.1.15",
     "react-native-elements": "^0.17.0",

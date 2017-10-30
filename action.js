@@ -15,7 +15,6 @@ const getUserPoint = (score) => {
 
 }   
     
-
 const getBonusPoint = (score) => {
     return (dispatch) => {
         dispatch( { type : 'ADD_USER_BONUS_POINT',payload : { score : score }})

@@ -60,7 +60,7 @@ class Map extends React.Component {
   handleClaim(index){
 
     const { dispatch } = this.props
-    dispatch(getBonusPoint(15))
+    dispatch(getBonusPoint(this.state.pinSelected.point))  // dispatch( getBonusPoint(pinSelected.point) )
     const { customPins } = this.state
     const i = index.index 
     customPins.splice(i,1)
@@ -75,7 +75,7 @@ class Map extends React.Component {
 
   render() {
 
-    //console.log(this.props.regionLocation)
+
 
     const { customPins,pinSelected,isDisabled } = this.state
 
@@ -119,7 +119,7 @@ class Map extends React.Component {
                   </Col>
 
                   <Col size = {1} style = {{justifyContent: 'center',alignItems: 'center'}}>
-                      <Text style = {styles.pointModal}>15P</Text>
+                      <Text style = {styles.pointModal}>{pinSelected.point}P</Text>
                   </Col>
               </Grid>
 
@@ -127,7 +127,7 @@ class Map extends React.Component {
 
         
           <View style={{flex: 2}}>  
-            <Text style = {{color : 'white'}}>Ratchada 17 Ratchadaphisek Rd, Din Daeng, Bangkok 10400</Text>
+            <Text style = {{color : 'white'}}>{pinSelected.address}</Text>
           </View>
 
           <View style={{flex: 2}}>  

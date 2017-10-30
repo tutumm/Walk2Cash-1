@@ -24,33 +24,6 @@ import CarouselEvents from 'react-native-snap-carousel'
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 200;
 
-const items = [
-  {
-    img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
-    url: 'https://www.facebook.com/events/128699921105395/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
-  },
-  {
-    img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
-    url: 'https://www.facebook.com/events/1409939899103453/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
-  },
-  {
-    img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
-    url: 'https://www.facebook.com/events/164100520840969/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_invitation%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
-  },
-  {
-    img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
-    url: 'https://www.facebook.com/events/128699921105395/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
-  },
-  {
-    img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
-    url: 'https://www.facebook.com/events/1409939899103453/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_event%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
-  },
-  {
-    img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
-    url: 'https://www.facebook.com/events/164100520840969/?acontext=%7B%22action_history%22%3A[%7B%22mechanism%22%3A%22bookmarks%22%2C%22surface%22%3A%22bookmarks_menu%22%2C%22extra_data%22%3A%22[]%22%7D%2C%7B%22surface%22%3A%22dashboard%22%2C%22mechanism%22%3A%22calendar_tab_invitation%22%2C%22extra_data%22%3A%22[]%22%7D]%2C%22ref%22%3A46%2C%22source%22%3A2%7D'
-  }
-]
-
 import { getStepCount,getUserPoint } from '../action.js'
 
 
@@ -62,15 +35,27 @@ class DashboardScreen extends Component {
     currentStepCount: 0,
     score: 0,
     count: 0,
-    modalVisible: false
+    modalVisible: false,
+    items: []
   }
 
   componentDidMount() {
-    this._subscribe();
+    this._subscribe()
+
+    fetch('https://fb69ac76.ngrok.io/events')
+    .then((response) => response.json())
+    .then((data) => {
+      this.setState({
+        items: data
+      })
+    })
+    .catch((error) => {
+      console.error(error)
+    });
   }
 
   componentWillUnmount() {
-    this._unsubscribe();
+    this._unsubscribe()
   }
 
   _subscribe = () => {
@@ -132,8 +117,8 @@ class DashboardScreen extends Component {
 
   _renderItem({ item, index }) {
     return (
-      <TouchableHighlight style={styles.slide} onPress={ () => WebBrowser.openBrowserAsync(item.url) }>
-          <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
+      <TouchableHighlight style={styles.slide} onPress={ () => WebBrowser.openBrowserAsync(item.eventUrl) }>
+          <Image style={{ width: 150, height: 150 }} source={{ uri: item.imgUrl }} />
       </TouchableHighlight>
     );
   }
@@ -182,7 +167,7 @@ class DashboardScreen extends Component {
         <View style={{ marginTop: 10, marginBottom: 30 }}>
           <CarouselEvents
             ref={(c) => { this._carousel = c; }}
-            data={items}
+            data={this.state.items}
             renderItem={this._renderItem}
             sliderWidth={BannerWidth}
             itemWidth={150}

@@ -21,4 +21,10 @@ const getBonusPoint = (score) => {
     }
 }
 
+const redeemVoucher = (score) => {
+    return (dispatch) => {
+        dispatch( { type : 'VOUCHER_REDEEM',payload : { score : score }})        
+    }
+}
+
 export { getStepCount,getUserPoint,getBonusPoint }   

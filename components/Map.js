@@ -31,7 +31,6 @@ class Map extends React.Component {
     swipeToClose: true
   }
 
-
   componentDidMount(){
 
     fetch('https://fb69ac76.ngrok.io/maps')
@@ -83,6 +82,8 @@ class Map extends React.Component {
       <MapView
         style={{ flex: 1 }}
         showsUserLocation = {true}
+        loadingEnabled = {true}
+        loadingIndicatorColor = {'#CD5294'}
         region = {this.props.regionLocation}
       >
 
@@ -94,13 +95,25 @@ class Map extends React.Component {
                       longitude : pin.longitude
                     }}
                     onPress = { () => { this._showModal(pin,{index}) } }
-                    pinColor = 'FA8072'
-                  />
+                  >
+
+                    <Image 
+                      source={require('../assets/images/bubble.png')} 
+                      style = {styles.mapMarker}
+                    >
+                        <View style = {styles.textPinpoint}>
+                          <Text style = {styles.textPinStyle}> 
+                              {pin.point}P
+                          </Text>
+                        </View>
+                    </Image>
+
+                  </MapView.Marker>
               );               
         })}
         
         <Modal style={[styles.modal, styles.modalMap]} position={"bottom"} ref = {"mapModal"}>
-            
+
           <View style = {{flex : 1}} >
             <Image source={require('../assets/images/minus64.png')} style={styles.minusStyle} /> 
           </View>
@@ -113,7 +126,10 @@ class Map extends React.Component {
                     </View>
 
                     <View style = {{marginTop : 20,paddingLeft : 30}}> 
-                      <Text style={{color : '#EEC449'}}>Rating(4.5)</Text>  
+                      <Text style={{color : '#EEC449'}}>
+                          <Text style = {{fontSize : 30}}> ⋆⋆⋆⋆ </Text> Rating(4.5)
+                      </Text>  
+
                     </View>
 
                   </Col>
@@ -151,6 +167,25 @@ class Map extends React.Component {
 
 const styles = StyleSheet.create({
 
+  mapMarker : {
+    width : 50,
+    height : 50,
+
+  },
+  textPinpoint : {
+    paddingTop : 12,
+    justifyContent : 'center',
+    alignSelf : 'center',
+    alignItems : 'center'
+  },
+  textPinStyle : {
+    color : '#FFFFFF', 
+    fontWeight: 'bold',
+    shadowColor: '#F72582',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 3
+  },
   minusStyle : {
     width : 50,
     height : 50

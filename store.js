@@ -18,7 +18,7 @@ export const StepCounter = (state = initialState,action) => {
         case 'USER_POINT':
           return { ...state, 
                    userPoint : action.payload.score, 
-                   totalPoint : state.userPoint + state.bonusPoint + action.payload.score
+                   totalPoint : state.userPoint + state.bonusPoint 
                  }
         case 'ADD_USER_BONUS_POINT':   
           return { ...state, 

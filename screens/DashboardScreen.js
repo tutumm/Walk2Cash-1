@@ -70,7 +70,8 @@ class DashboardScreen extends Component {
 
       this.setState({
         score : currentScore,       
-        currentStepCount: this.props.currentStep
+        // currentStepCount: this.props.currentStep
+        currentStepCount : result.steps
       });
     });
 

@@ -24,39 +24,6 @@ const images = [
   "http://d2ouvy59p0dg6k.cloudfront.net/img/original/shutterstock_134269931_1.jpg"
 ];
 
-const items = [
-  { 
-    name: '1',
-    img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
-    point: '1000 P'
-  },
-  {
-    name: '2',
-    img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
-    point: '1800 P'
-  },
-  {
-    name: '3',
-    img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
-    point: '20000 P'
-  },
-  {
-    name: '4',
-    img: "https://www.shutterstock.com/panorama/wp-content/uploads/2015/05/shutterstock_206406082-copy.jpg",
-    point: '1450 P'
-  },
-  {
-    name: '5',
-    img: "https://thumb9.shutterstock.com/display_pic_with_logo/234100/111362132/stock-photo-view-on-eiffel-tower-paris-france-111362132.jpg",
-    point: '1870 P'
-  },
-  {
-    name: '6',
-    img: "https://i.vimeocdn.com/video/487267641_1280x720.jpg",
-    point: '5630 P'
-  }
-]
-
 const categories = [
   'Beverages', 'Foods', 'Cosmetics', 'Charities', 'Electronics', 'Fashions'
 ]
@@ -66,6 +33,25 @@ const searchImage = () => (
 )
 
 class RedeemScreen extends Component {
+
+  state = {
+    searchVoucher: '',
+    items: []
+  }
+
+  componentDidMount() {
+    fetch('https://fb69ac76.ngrok.io/products')
+    .then((response) => response.json())
+    .then((data) => {
+      this.setState({
+        items: data
+      })
+    })
+    .catch((error) => {
+      console.error(error)
+    });
+  }
+
   renderCarousel(image, index) {
     return (
         <View key={index}>
@@ -76,14 +62,16 @@ class RedeemScreen extends Component {
 
   _renderItem({ item, index }) {
     const productDetail = {
-      name: item.name,
-      img: item.img,
-      point: item.point
+      name: item.productName,
+      detail: item.productDetail,
+      img: item.imgUrl,
+      point: item.point,
+      category: item.category
     }
     return (
       <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail({productDetail: productDetail})}>
         <View>
-          <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
+          <Image style={{ width: 150, height: 150 }} source={{ uri: item.imgUrl }} />
           <Text style={styles.point}>{item.point}</Text>
         </View>
       </TouchableHighlight>
@@ -96,11 +84,6 @@ class RedeemScreen extends Component {
           <Text style={styles.categoryButton}>{category}</Text>
       </View>
     );
-  }
-
-  state = {
-    searchVoucher: '',
-    tum: 'Tum'
   }
 
   render(){
@@ -133,13 +116,12 @@ class RedeemScreen extends Component {
 
         <View style={styles.justForYouText}>
           <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Just For You</Text>
-          <Text onPress={() => Actions.productDetail()}>Go To Product Screen</Text>
         </View>
 
         <View style={{height: 190}}>
           <CarouselJustForYou
               ref={(c) => { this._carousel = c; }}
-              data={items}
+              data={this.state.items}
               renderItem={this._renderItem}
               sliderWidth={BannerWidth}
               itemWidth={150}

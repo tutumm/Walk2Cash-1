@@ -10,19 +10,15 @@ import {
 import { Actions } from 'react-native-router-flux'
 
 
-class ProductDetail extends Component{
+class ProductDetail extends Component {
   productDetail = this.props.productDetail
-  render(){
-    return(
+  render() {
+    return (
       <View style={styles.container}>
-      <Text
-        style={styles.welcome}
-      >
-      <Text>{this.productDetail.name}</Text>
-      <Image style={{ width: 150, height: 150 }} source={{ uri: this.productDetail.img }} />
-      <Text>{this.productDetail.point}</Text>
-      </Text>
-    </View>
+          <Text style={styles.productName}>{this.productDetail.name}</Text>
+          <Image style={{ width: 150, height: 150 }} source={{ uri: this.productDetail.img }} />
+          <Text>{this.productDetail.point}</Text>
+      </View>
     );
   }
 
@@ -31,15 +27,15 @@ class ProductDetail extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#171C2F',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  productName: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'white'
   }
+  
 });
 
 export default ProductDetail

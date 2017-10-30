@@ -90,7 +90,7 @@ class UserScreen extends Component {
           height: 200,
           margin: 15,
           width: 300
-        }}/>
+      }}/>
       )
     }else if(this.state.view==2){
       return (
@@ -153,9 +153,52 @@ class UserScreen extends Component {
        }}/>
       )
      }
-    
-
   }
+
+  showGraphLabel = () => {
+    if(this.state.view==1){
+      return (
+        <View style={{flexDirection:'row'}}>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 1</Text>
+          <Text style={styles.dayLabel}> 11</Text>
+          <Text style={styles.dayLabel}> 11</Text>
+          <Text style={styles.dayLabel}> 11</Text>
+          <Text style={styles.dayLabel}> 11</Text>
+          <Text style={styles.dayLabel}> 11</Text>
+          <Text style={styles.dayLabel}> 11</Text>
+        </View>
+      )
+    }
+    else if(this.state.view==2){
+      return (
+        <View>
+          <Text style={{
+            color: 'white'
+          }}>
+            Hello
+          </Text>
+        </View>
+      )
+    }
+    else{
+      return (
+        <View>
+          <Text>
+            eiei
+          </Text>
+        </View>
+      )
+    }
+  }
+
 
     render() {
         
@@ -166,24 +209,6 @@ class UserScreen extends Component {
                  source={{uri: 'https://www.tkgourmet.com/v/vspfiles/photos/3-salmonnorway-2.jpg'}}
                /> 
                <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold',margin:15}}>Salmon Norway</Text>
-               
-               <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-               <Button style={styles.buttontab}
-               onPress={onPressLearnMore}
-               title="Day"
-               accessibilityLabel="day"
-             />
-             <Button style={styles.buttontab}
-               onPress={onPressLearnMore}
-               title="Month"
-               accessibilityLabel="month"
-             />
-             <Button style={styles.buttontab}
-               onPress={onPressLearnMore}
-               title="Year"
-               accessibilityLabel="year"
-             />
-               </View>
 
                <Text style={styles.textstyle}>MY POINTS: {this.props.totalPoint} </Text>
 
@@ -205,19 +230,121 @@ class UserScreen extends Component {
                 {this.showGraph()}
               </View>
 
+              
               <View>
-                <Pie
-                  radius={100}
-                  innerRadius={86}
-                  series={[this.state.currentStepCount*100/8000]}
-                  colors={['#F5318D']}
-                  backgroundColor='#364060'
-                />
-                <View style={styles.gauge}>
-                  <Text style={styles.gaugeGoal}>Goal: 8000</Text>
-                  <Text style={styles.gaugeText}>{this.state.currentStepCount} steps</Text>
-                </View>
-          </View>
+                {this.showGraphLabel()}
+              </View>
+
+              <View style={styles.card}>
+
+                  <Text style={{color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: 15,
+                    marginBottom: 20,
+                    marginTop: 20}}>
+                    PINNED VOUCHER
+                  </Text>
+
+                  <View style={{flexDirection: 'row',marginBottom: 30}}>
+
+
+                    {/* PIE CHART */}
+                    <View style={styles.eachPie}>
+                      <View>
+                        <Pie
+                          radius={36}
+                          innerRadius={31}
+                          series={[40]}
+                          colors={['#F5318D']}
+                          backgroundColor='#364060'
+                        />
+                        <View style={styles.gauge}>
+                          <Text style={styles.gaugeText}>40%</Text>
+                        </View>
+                      </View>
+
+                      <Text style={styles.textG}>400 / 1000</Text>
+                      <Text style={styles.textDet}>Chocolate Mocha</Text>
+                      
+                    </View>
+                    {/* END PIE CHART */}
+
+                    {/* PIE CHART */}
+                    <View style={styles.eachPie}>
+                      <View>
+                        <Pie
+                          radius={35}
+                          innerRadius={30}
+                          series={[40]}
+                          colors={['#F5318D']}
+                          backgroundColor='#364060'
+                        />
+                        <View style={styles.gauge}>
+                          <Text style={styles.gaugeText}>40%</Text>
+                        </View>
+                      </View>
+
+                      <Text style={styles.textG}>400 / 1000</Text>
+                      <Text style={styles.textDet}>Chocolate Mocha</Text>
+                      
+                    </View>
+                    {/* END PIE CHART */}
+
+                  </View>
+
+                  
+                  <View style={{flexDirection: 'row', marginBottom: 30}}>
+
+
+                    {/* PIE CHART */}
+                    <View style={styles.eachPie}>
+                      <View>
+                        <Pie
+                          radius={35}
+                          innerRadius={30}
+                          series={[40]}
+                          colors={['#F5318D']}
+                          backgroundColor='#364060'
+                        />
+                        <View style={styles.gauge}>
+                          <Text style={styles.gaugeText}>40%</Text>
+                        </View>
+                      </View>
+
+                      <Text style={styles.textG}>400 / 1000</Text>
+                      <Text style={styles.textDet}>Chocolate Mocha</Text>
+                      
+                    </View>
+                    {/* END PIE CHART */}
+
+                    {/* PIE CHART */}
+                    <View style={styles.eachPie}>
+                      <View>
+                        <Pie
+                          radius={35}
+                          innerRadius={30}
+                          series={[40]}
+                          colors={['#F5318D']}
+                          backgroundColor='#364060'
+                        />
+                        <View style={styles.gauge}>
+                          <Text style={styles.gaugeText}>40%</Text>
+                        </View>
+                      </View>
+
+                      <Text style={styles.textG}>400 / 1000</Text>
+                      <Text style={styles.textDet}>Chocolate Mocha</Text>
+                      
+                    </View>
+                    {/* END PIE CHART */}
+
+                  </View>
+                    
+
+                  
+
+
+              </View>
           
 
          </ScrollView>
@@ -228,6 +355,10 @@ class UserScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    dayLabel:{
+      color: '#7B7B7B',
+      marginRight: 5
+    },
     welcome: {
       borderRadius: 50,
       height: 30,
@@ -242,7 +373,14 @@ const styles = StyleSheet.create({
         
     },
     buttonPress: {
-      fontSize: 20
+      borderRadius: 50,
+      height: 30,
+      width: 80,
+      borderRadius:10,
+      margin: 5,
+      backgroundColor: '#F72582',
+      textAlign: 'center',
+      textAlignVertical: 'center'
         
     },
     
@@ -255,11 +393,47 @@ const styles = StyleSheet.create({
       flexDirection: 'row'
     },
     textstyle: {
-      fontSize: 15,
       textAlign: 'center',
       margin: 15,
       color: '#F5318D'
     },
+    gauge: {
+      position: 'absolute',
+      width: 70,
+      height: 70,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    gaugeText: {
+      backgroundColor: 'transparent',
+      fontWeight: 'bold',
+      color: 'white',
+    },
+    gaugeGoal: {
+      color: '#364069',
+      fontWeight: 'bold',
+      marginBottom: 5
+    },
+    card: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: '#262d47',
+      shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 10,
+      width: 300,
+      height: 370,
+      marginTop: 20,
+    },
+    textDet: {
+      color: 'white',
+    },
+    textG: {
+      color: '#7B7B7B',
+      fontSize: 12,
+    },
+    eachPie: {
+      alignItems: 'center',
+      margin: 10
+    }
   });
   
   export default UserScreen

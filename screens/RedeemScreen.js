@@ -24,7 +24,30 @@ const images = [
 ];
 
 const categories = [
-  'Beverages', 'Foods', 'Cosmetics', 'Charities', 'Electronics', 'Fashions'
+  {
+    image: require('../images/Category1.jpg'),
+    category: 'Baverages'
+  },
+  {
+    image: require('../images/Category2.jpg'),
+    category: 'Charites'
+  },
+  {
+    image: require('../images/Category3.jpg'),
+    category: 'Cosmetics'
+  },
+  {
+    image: require('../images/Category4.jpg'),
+    category: 'Electronics'
+  },
+  {
+    image: require('../images/Category5.jpg'),
+    category: 'Fashions'
+  },
+  {
+    image: require('../images/Category6.jpg'),
+    category: 'Foods'
+  },
 ]
 
 const searchImage = () => (
@@ -52,20 +75,11 @@ class RedeemScreen extends Component {
   }
 
   renderCarousel(image, index) {
-    const productDetail = {
-      name: image.productName,
-      detail: image.productDetail,
-      brand: image.productBrand,
-      img: image.imgUrl,
-      point: image.point,
-      rating: image.rating,
-      category: image.category
-    }
     return (
       <TouchableHighlight key={index} onPress={() => Actions.productDetail({ productDetail: productDetail })}>
         <View>
-        <Image style={{ width: BannerWidth, height: BannerHeight }} source={image} />
-      </View>
+          <Image style={{ width: BannerWidth, height: BannerHeight }} source={image} />
+        </View>
       </TouchableHighlight>
     );
   }
@@ -85,7 +99,7 @@ class RedeemScreen extends Component {
         <View>
           <Image style={{ width: 150, height: 150 }} source={{ uri: item.imgUrl }} />
           <Text style={styles.productName}>{item.productName}</Text>
-          <Text style={{marginTop: 10, alignItems: 'center', textAlign: 'center'}}>
+          <Text style={{ marginTop: 10, alignItems: 'center', textAlign: 'center' }}>
             <Text style={styles.point}>{item.point}</Text>
             <Image
               style={{ width: 17, height: 17, marginLeft: 5 }}
@@ -98,10 +112,16 @@ class RedeemScreen extends Component {
   }
 
   renderCategory(category, index) {
+    const productCategory = {
+      category: category.category,
+      categoryImage: category.image
+    }
     return (
-      <View key={index}>
-        <Text style={styles.categoryButton}>{category}</Text>
-      </View>
+      <TouchableHighlight key={index} onPress={() => Actions.productCategory({productCategory: productCategory})}>
+        <View>
+          <Image style={{ width: BannerWidth, height: 110 }} source={category.image} />
+        </View>
+      </TouchableHighlight>
     );
   }
 
@@ -149,6 +169,8 @@ class RedeemScreen extends Component {
 
         <View style={styles.categories}>
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Categories</Text>
+        </View>
+        <View style={styles.showCategories}>
           {categories.map((category, index) => this.renderCategory(category, index))}
         </View>
       </ScrollView>
@@ -213,7 +235,6 @@ const styles = StyleSheet.create({
   },
   categories: {
     width: 250,
-    marginBottom: 100
   },
   categoryButton: {
     fontSize: 20,
@@ -227,6 +248,10 @@ const styles = StyleSheet.create({
     borderColor: '#F72582',
     color: '#F72582',
     textAlign: 'center',
+  },
+  showCategories: {
+    marginTop: 15,
+    marginBottom: 20
   }
 });
 

@@ -4,35 +4,33 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
 import { Col, Row, Grid } from "react-native-easy-grid"
 
-const imageName = {
-  image05: require('../images/stars/0.5.png'),
-  image1: require('../images/stars/1.png'),
-  image15: '../images/stars/1.5.png',
-  image2: '../images/stars/2.png',
-  image25: '../images/stars/2.5.png',
-  image3: '../images/stars/3.png',
-  image35: '../images/stars/3.5.png',
-  image4: '../images/stars/4.png',
-  image45: require('../images/stars/4.5.png'),
-  image5: '../images/stars/5.png'
-}
-
 class ProductDetail extends Component {
   productDetail = this.props.productDetail
 
-  componentDidMount() {
+  showQR = () => (
+    <View style={{width: '75%', alignItems: 'center'}}>
+    <Text style={styles.productQR}>QR Code</Text>
+    <Image
+      style={{ width: 250, height: 250, marginTop: 10 }}
+      source={(require('../images/qr.png'))}
+    />
+    <Text style={styles.productQR}>Generated Code</Text>
+    <View style={{backgroundColor: '#0C0F19', height: 100, width: 250, marginBottom: 20, alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+      <Text style={{color: 'white', fontSize: 35}}>JQD435FHEK</Text>
+    </View>
+  </View>
+  )
 
-    console.log(imageName['image' + '45'])
-  }
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={{ height: 230, marginTop: 30, alignItems: 'flex-start' }}>
           <Grid>
             <Col style={{ alignItems: 'center' }}>
@@ -49,15 +47,15 @@ class ProductDetail extends Component {
                 {this.productDetail.category}
               </Text>
               <Text style={styles.productRating}>
-                Ratings({this.productDetail.rating})
+                Ratings(4.5)
               </Text>
               <Image
-                  style={{ width: 124, height: 17, marginLeft: -10, marginTop: 10 }}
-                  source={this.getImage}
-                />
+                style={{ width: 124, height: 17, marginLeft: -10, marginTop: 10 }}
+                source={(require('../images/stars/4.5.png'))}
+              />
             </Col>
           </Grid>
-          <Grid style={{marginTop: 100}}>
+          <Grid style={{ marginTop: 100 }}>
             <Col>
               <Text style={{ marginTop: 13, alignItems: 'center', textAlign: 'center', justifyContent: 'center' }}>
                 <Text style={styles.productPoint}>{this.productDetail.point}</Text>
@@ -79,14 +77,16 @@ class ProductDetail extends Component {
           <Text style={styles.productDetailHead}>รายละเอียด</Text>
           <Text style={styles.productDetail}>{this.productDetail.detail}</Text>
         </View>
-      </View>
+
+        {this.showQR()}
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+
     alignItems: 'center',
     backgroundColor: '#171C2F',
   },
@@ -144,6 +144,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F72582',
     borderColor: '#F72582'
   },
+  productQR: {
+    color: 'white',
+    fontWeight: 'bold',
+    marginBottom: 10,
+    fontSize: 20,
+    marginTop: 20,
+    alignItems: 'flex-start'
+  }
 
 
 });

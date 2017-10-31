@@ -24,39 +24,6 @@ const images = [
   "http://d2ouvy59p0dg6k.cloudfront.net/img/original/shutterstock_134269931_1.jpg"
 ];
 
-const items = [
-  { 
-    name: '1',
-    img: "https://ak.picdn.net/assets/cms/7c54565b19691d55cca97714b77aa2dae44ee264-shutterstock_83672455.jpg",
-    point: '1000 P'
-  },
-  {
-    name: '2',
-    img: "https://ak.picdn.net/assets/cms/6eca63d12211a357c80f89dbdfb0c362e8e4e27b-shutterstock_400690177.jpg",
-    point: '1800 P'
-  },
-  {
-    name: '3',
-    img: "https://thumb7.shutterstock.com/display_pic_with_logo/293665/371429575/stock-photo-art-beautiful-sunrise-over-the-tropical-beach-371429575.jpg",
-    point: '20000 P'
-  },
-  {
-    name: '4',
-    img: "https://www.shutterstock.com/panorama/wp-content/uploads/2015/05/shutterstock_206406082-copy.jpg",
-    point: '1450 P'
-  },
-  {
-    name: '5',
-    img: "https://thumb9.shutterstock.com/display_pic_with_logo/234100/111362132/stock-photo-view-on-eiffel-tower-paris-france-111362132.jpg",
-    point: '1870 P'
-  },
-  {
-    name: '6',
-    img: "https://i.vimeocdn.com/video/487267641_1280x720.jpg",
-    point: '5630 P'
-  }
-]
-
 const categories = [
   'Beverages', 'Foods', 'Cosmetics', 'Charities', 'Electronics', 'Fashions'
 ]
@@ -66,44 +33,68 @@ const searchImage = () => (
 )
 
 class RedeemScreen extends Component {
+
+  state = {
+    searchVoucher: '',
+    items: []
+  }
+
+  componentDidMount() {
+    fetch('https://fb69ac76.ngrok.io/products')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          items: data
+        })
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+  }
+
   renderCarousel(image, index) {
     return (
-        <View key={index}>
-            <Image style={{ width: BannerWidth, height: BannerHeight }} source={{ uri: image }} />
-        </View>
+      <View key={index}>
+        <Image style={{ width: BannerWidth, height: BannerHeight }} source={{ uri: image }} />
+      </View>
     );
   }
 
   _renderItem({ item, index }) {
     const productDetail = {
-      name: item.name,
-      img: item.img,
-      point: item.point
+      name: item.productName,
+      detail: item.productDetail,
+      brand: item.productBrand,
+      img: item.imgUrl,
+      point: item.point,
+      rating: item.rating,
+      category: item.category
     }
     return (
-      <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail({productDetail: productDetail})}>
+      <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail({ productDetail: productDetail })}>
         <View>
-          <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
-          <Text style={styles.point}>{item.point}</Text>
+          <Image style={{ width: 150, height: 150 }} source={{ uri: item.imgUrl }} />
+          <Text style={{marginTop: 10, alignItems: 'center', textAlign: 'center'}}>
+            <Text style={styles.point}>{item.point}</Text>
+            <Image
+              style={{ width: 17, height: 17, marginLeft: 5 }}
+              source={require('../images/Point.png')}
+            />
+          </Text>
         </View>
       </TouchableHighlight>
     );
   }
 
-  renderCategory (category, index){
+  renderCategory(category, index) {
     return (
       <View key={index}>
-          <Text style={styles.categoryButton}>{category}</Text>
+        <Text style={styles.categoryButton}>{category}</Text>
       </View>
     );
   }
 
-  state = {
-    searchVoucher: '',
-    tum: 'Tum'
-  }
-
-  render(){
+  render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar
@@ -113,9 +104,9 @@ class RedeemScreen extends Component {
 
         <View style={styles.searchBox}>
           <TextInput style={styles.searchText}
-           onChangeText={(searchVoucher) => this.setState({searchVoucher})}
-           placeholder=' Search Voucher ...' 
-           placeholderTextColor='rgba(255, 255, 255, 0.5)' />
+            onChangeText={(searchVoucher) => this.setState({ searchVoucher })}
+            placeholder=' Search Voucher ...'
+            placeholderTextColor='rgba(255, 255, 255, 0.5)' />
         </View>
 
         <View style={styles.carousel}>
@@ -125,29 +116,28 @@ class RedeemScreen extends Component {
             loop
             index={0}
             pageSize={BannerWidth}
-            style={{height:10}}
+            style={{ height: 10 }}
           >
             {images.map((image, index) => this.renderCarousel(image, index))}
           </Carousel>
         </View>
 
         <View style={styles.justForYouText}>
-          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Just For You</Text>
-          <Text onPress={() => Actions.productDetail()}>Go To Product Screen</Text>
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Just For You</Text>
         </View>
 
-        <View style={{height: 190}}>
+        <View style={{ height: 190 }}>
           <CarouselJustForYou
-              ref={(c) => { this._carousel = c; }}
-              data={items}
-              renderItem={this._renderItem}
-              sliderWidth={BannerWidth}
-              itemWidth={150}
-            />
+            ref={(c) => { this._carousel = c; }}
+            data={this.state.items}
+            renderItem={this._renderItem}
+            sliderWidth={BannerWidth}
+            itemWidth={150}
+          />
         </View>
 
         <View style={styles.categories}>
-          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Categories</Text>
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Categories</Text>
           {categories.map((category, index) => this.renderCategory(category, index))}
         </View>
       </ScrollView>
@@ -156,73 +146,70 @@ class RedeemScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      alignItems: 'center',
-      backgroundColor: '#171C2F',
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-      color : '#F5318D'
-    },
-    carousel: {
-      height: 180
-    },
-    searchBox: {
-      backgroundColor: '#262E46',
-      height: 50,
-      width: 300,
-      marginTop: 20,
-      marginBottom: 20,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.6,
-      shadowRadius: 10
-    },
-    searchText: {
-      fontSize: 14,
-      marginTop: 16,
-      marginLeft: 15,
-      color: 'white'
-    },
-    justForYouText: {
-      width: 250,
-      marginTop: 30,
-      marginBottom: 10
-    },
-    slide: {
-      height: 150,
-      width: 150,
-      backgroundColor: 'transparent'
-    },
-    point: {
-      color: '#F72582',
-      textAlign: 'center',
-      marginTop: 10,
-      fontWeight: 'bold',
-      shadowColor: '#F72582',
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 0.9,
-      shadowRadius: 3
-    },
-    categories: {
-      width: 250,
-      marginBottom: 100
-    },
-    categoryButton: {
-      fontSize: 20,
-      marginTop: 10,
-      paddingTop: 3,
-      borderRadius: 50,
-      height: 35,
-      width: 250,
-      borderRadius:10,
-      borderWidth: 1,
-      borderColor: '#F72582',
-      color: '#F72582',
-      textAlign: 'center',
-    }
-  });
-  
-  export default RedeemScreen
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#171C2F',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    color: '#F5318D'
+  },
+  carousel: {
+    height: 180
+  },
+  searchBox: {
+    backgroundColor: '#262E46',
+    height: 50,
+    width: 300,
+    marginTop: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.6,
+    shadowRadius: 10
+  },
+  searchText: {
+    fontSize: 14,
+    marginTop: 16,
+    marginLeft: 15,
+    color: 'white'
+  },
+  justForYouText: {
+    width: 250,
+    marginTop: 30,
+    marginBottom: 10
+  },
+  slide: {
+    height: 150,
+    width: 150,
+    backgroundColor: 'transparent'
+  },
+  point: {
+    fontSize: 17,
+    color: '#F72582',
+    textAlign: 'center',
+    marginTop: 10,
+    fontWeight: 'bold',
+  },
+  categories: {
+    width: 250,
+    marginBottom: 100
+  },
+  categoryButton: {
+    fontSize: 20,
+    marginTop: 10,
+    paddingTop: 3,
+    borderRadius: 50,
+    height: 35,
+    width: 250,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#F72582',
+    color: '#F72582',
+    textAlign: 'center',
+  }
+});
+
+export default RedeemScreen

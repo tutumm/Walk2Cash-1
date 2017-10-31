@@ -17,7 +17,7 @@ class ProductDetail extends Component {
   productDetail = this.props.productDetail
 
   state = {
-    claimedVoucher : true
+    claimedVoucher : false
   }
 
   showQR = () => (
@@ -37,7 +37,7 @@ class ProductDetail extends Component {
   _claim(productDetail){
      const { dispatch } = this.props
      this.setState({
-        claimedVoucher : false
+        claimedVoucher : true
      })
      dispatch(redeemVoucher(this.productDetail))
   }
@@ -49,7 +49,7 @@ class ProductDetail extends Component {
 
     return (
 
-      <ScrollView contentContainerStyle={this.state.claimedVoucher ? styles.container : styles.containerQR}>
+      <ScrollView contentContainerStyle={!this.state.claimedVoucher ? styles.container : styles.containerQR}>
         <View style={{ height: 230, marginTop: 30, alignItems: 'flex-start' }}>
           <Grid>
             <Col style={{ alignItems: 'center' }}>
@@ -86,27 +86,13 @@ class ProductDetail extends Component {
               </Text>
             </Col>
             <Col>
-              
-              {this.state.claimedVoucher && this.props.totalPoint >= this.productDetail.point ? 
-                <View style={styles.signUpButton}>
-                  <Text 
-                    style={{ textAlign: 'center', backgroundColor: 'transparent', fontSize: 18, color: 'white', marginTop: 3 }}
-                    onPress = { () => this._claim(this.productDetail)}
-                  >
-                    Claim
-                  </Text>
-                </View> :
-            
-                <View style={styles.claimedButton}>
-                  <Text 
-                    style={{ textAlign: 'center', backgroundColor: 'transparent', fontSize: 18, color: 'white', marginTop: 3 }}
-                  >
-                    Claim
-                  </Text>
-                </View>
-
-            }
-              
+              <View style={styles.claimedButton}>
+                <Text 
+                  style={{ textAlign: 'center', backgroundColor: 'transparent', fontSize: 18, color: 'white', marginTop: 3 }}
+                >
+                  Claimed
+                </Text>
+              </View>
             </Col>
           </Grid>
         </View>
@@ -116,29 +102,14 @@ class ProductDetail extends Component {
           <Text style={styles.productDetail}>{this.productDetail.detail}</Text>
         </View>
 
-            { !this.state.claimedVoucher ? this.showQR() : <View style = {{flex:1}}/>}
-
-        {/* {this.showQR()} */}
+        {this.showQR()}
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  containerQR: {
-    alignItems: 'center',
-    backgroundColor: '#171C2F',
-  },
-  claimedButton: {
-    height: 35,
-    width: '80%',
-    borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: '#f0cedc',
-    borderColor: '#f0cedc'
-  },
   container: {
-    flex : 1,
     alignItems: 'center',
     backgroundColor: '#171C2F',
   },
@@ -188,13 +159,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 15
   },
-  signUpButton: {
+  claimedButton: {
     height: 35,
     width: '80%',
     borderRadius: 20,
     borderWidth: 2,
-    backgroundColor: '#F72582',
-    borderColor: '#F72582'
+    backgroundColor: '#f0cedc',
+    borderColor: '#f0cedc'
   },
   productQR: {
     color: 'white',

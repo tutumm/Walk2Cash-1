@@ -1,18 +1,15 @@
 
 const getStepCount = (currentStep) => {
-    
     return (dispatch) => {
         console.log(currentStep)
         dispatch( { type : 'SHOW_CURRENT_STEP',payload : { currentStepCount : currentStep}})
     }
-
 }
 
 const getUserPoint = (score) => {
     return (dispatch) => {
         dispatch( { type : 'USER_POINT' ,payload : { score : score} })
     }
-
 }   
     
 const getBonusPoint = (score) => {
@@ -21,10 +18,11 @@ const getBonusPoint = (score) => {
     }
 }
 
-const redeemVoucher = (score) => {
+const redeemVoucher = (productDetail) => {
     return (dispatch) => {
-        dispatch( { type : 'VOUCHER_REDEEM',payload : { score : score }})        
+        // console.log(productDetail)
+        dispatch( { type : 'VOUCHER_REDEEM',payload : { productDetail : productDetail }})        
     }
 }
 
-export { getStepCount,getUserPoint,getBonusPoint }   
+export { getStepCount,getUserPoint,getBonusPoint,redeemVoucher }   

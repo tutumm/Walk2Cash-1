@@ -17,6 +17,7 @@ import ProductDetail from './screens/ProductDetail.js'
 import CheckinScreen from './screens/CheckinScreen.js'
 import RedeemScreen from './screens/RedeemScreen.js'
 import UserScreen from './screens/UserScreen.js'
+import ClaimVoucher from './screens/ClaimVoucher.js'
 import BlueScreen from './screens/BlueScreen.js'
 import LoginScreen from './screens/LoginScreen.js'
 import BlackScreen from './screens/BlackScreen.js'
@@ -167,6 +168,13 @@ const App = () => {
                     component = {UserScreen}
                     title = "USER"
                     hideNavBar={false}
+                  />
+
+                  <Scene 
+                    key = "claimVoucher"
+                    component = {ClaimVoucher}
+                    title = "CLAMVOUCHER"
+                    hideNavBar= {false}
                   />
 
             </Scene>

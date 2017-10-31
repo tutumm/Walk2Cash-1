@@ -6,9 +6,9 @@ const initialState = {
     userPoint : 0,
     bonusPoint : 0,
     totalPoint : 0,
-    redeemPoint : 0 
+    redeemPoint : 0,
+    claimedVoucher : []
 }
-
 
 export const StepCounter = (state = initialState,action) => {
   
@@ -24,16 +24,18 @@ export const StepCounter = (state = initialState,action) => {
           case 'ADD_USER_BONUS_POINT':   
             return { ...state, 
                       bonusPoint : state.bonusPoint + action.payload.score,
-                      totalPoint : state.totalPoint + action.payload.score - state.redeemPoint  
+                      totalPoint : state.totalPoint + action.payload.score  
                     }
           case 'VOUCHER_REDEEM':
+            console.log(action.payload.productDetail.brand)
             return { ...state, 
-                     redeemPoint : state.redeemPoint + action.payload.score,
-                     totalPoint : state.totalPoint - action.payload.score
+                     redeemPoint : state.redeemPoint + action.payload.productDetail.point,
+                     totalPoint : state.totalPoint - action.payload.productDetail.point,
+                     claimedVoucher : [ ...state.claimedVoucher,action.payload.productDetail]
                    }
           default:
             return state
-  
+            
       }
   
   }

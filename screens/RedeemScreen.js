@@ -19,9 +19,8 @@ const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 200;
 
 const images = [
-  "http://images.medicaldaily.com/sites/medicaldaily.com/files/2015/07/11/shutterstock111977636.jpg",
-  "https://horizon-magazine.eu/sites/default/files/styles/large/public/field/image/shutterstock_122889364_v2.jpg?itok=oSTFHSjU",
-  "http://d2ouvy59p0dg6k.cloudfront.net/img/original/shutterstock_134269931_1.jpg"
+  require('../images/HeaderArtboard1.jpg'),
+  require('../images/HeaderArtboard2.jpg')
 ];
 
 const categories = [
@@ -53,10 +52,21 @@ class RedeemScreen extends Component {
   }
 
   renderCarousel(image, index) {
+    const productDetail = {
+      name: image.productName,
+      detail: image.productDetail,
+      brand: image.productBrand,
+      img: image.imgUrl,
+      point: image.point,
+      rating: image.rating,
+      category: image.category
+    }
     return (
-      <View key={index}>
-        <Image style={{ width: BannerWidth, height: BannerHeight }} source={{ uri: image }} />
+      <TouchableHighlight key={index} onPress={() => Actions.productDetail({ productDetail: productDetail })}>
+        <View>
+        <Image style={{ width: BannerWidth, height: BannerHeight }} source={image} />
       </View>
+      </TouchableHighlight>
     );
   }
 
@@ -74,6 +84,7 @@ class RedeemScreen extends Component {
       <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail({ productDetail: productDetail })}>
         <View>
           <Image style={{ width: 150, height: 150 }} source={{ uri: item.imgUrl }} />
+          <Text style={styles.productName}>{item.productName}</Text>
           <Text style={{marginTop: 10, alignItems: 'center', textAlign: 'center'}}>
             <Text style={styles.point}>{item.point}</Text>
             <Image
@@ -126,7 +137,7 @@ class RedeemScreen extends Component {
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Just For You</Text>
         </View>
 
-        <View style={{ height: 190 }}>
+        <View style={{ height: 230 }}>
           <CarouselJustForYou
             ref={(c) => { this._carousel = c; }}
             data={this.state.items}
@@ -157,7 +168,7 @@ const styles = StyleSheet.create({
     color: '#F5318D'
   },
   carousel: {
-    height: 180
+    height: BannerHeight
   },
   searchBox: {
     backgroundColor: '#262E46',
@@ -185,6 +196,13 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     backgroundColor: 'transparent'
+  },
+  productName: {
+    fontSize: 15,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 10,
+    fontWeight: 'bold',
   },
   point: {
     fontSize: 17,

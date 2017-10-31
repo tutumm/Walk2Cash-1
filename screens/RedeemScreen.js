@@ -68,7 +68,8 @@ class RedeemScreen extends Component {
       img: item.imgUrl,
       point: item.point,
       rating: item.rating,
-      category: item.category
+      category: item.category,
+      claimedVoucher : 'false'
     }
     return (
       <TouchableHighlight style={styles.slide} onPress={() => Actions.productDetail({ productDetail: productDetail })}>

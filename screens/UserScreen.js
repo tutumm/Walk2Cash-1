@@ -6,16 +6,23 @@ import {
   View,
   Image,
   Button,
+  Dimensions,
+  TouchableHighlight,
   ScrollView
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'
+import { connect } from 'react-redux'
 import Pie from 'react-native-pie'
-import Chart from 'react-native-chart';
+import Chart from 'react-native-chart'
+import CarouselJustForYou from 'react-native-snap-carousel'
 
 onPressLearnMore = () => {
-
+  
 }
+
+const BannerWidth = Dimensions.get('window').width;
+const BannerHeight = 200;
 
 class UserScreen extends Component {
 
@@ -24,7 +31,8 @@ class UserScreen extends Component {
     pressStatusDay: 1, 
     pressStatusWeek: 0, 
     pressStatusMonth: 0, 
-    pressStatusYear: 0    
+    pressStatusYear: 0,
+    items : this.props.claimedVoucher
   }
 
   onPressDay = () => {
@@ -216,8 +224,41 @@ class UserScreen extends Component {
       )
     }
   }
+
+
+
+
+  _renderItem({ item, index }) {
+    const productDetail = {
+      name: item.name,
+      detail: item.detail,
+      brand: item.brand,
+      img: item.img,
+      point: item.point,
+      rating: item.rating,
+      category: item.category
+    }
+    return (
+      <TouchableHighlight style={styles.slide} onPress={() => Actions.claimVoucher({ productDetail: productDetail })}>
+        <View>
+          <Image style={{ width: 150, height: 150 }} source={{ uri: item.img }} />
+          <Text style={{marginTop: 10, alignItems: 'center', textAlign: 'center'}}>
+            <Text style={styles.point}>{item.point}</Text>
+            <Image
+              style={{ width: 17, height: 17, marginLeft: 5 }}
+              source={require('../images/Point.png')}
+            />
+          </Text>
+        </View>
+      </TouchableHighlight>
+    );
+  }
+
     render() {
         
+        console.log("User screen")
+        console.log(this.props.claimedVoucher)
+
         return (
             <ScrollView contentContainerStyle = {styles.container}>
 
@@ -230,7 +271,7 @@ class UserScreen extends Component {
                   </View>
                   <View style={{justifyContent:'center'}}>
                     <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Salmon Norway</Text>
-                    <Text style={{color: '#F5318D'}}>MY POINTS: 144 </Text>
+                    <Text style={{color: '#F5318D'}}>MY POINTS: {this.props.totalPoint} </Text>
                   </View>
               </View>
               
@@ -238,7 +279,7 @@ class UserScreen extends Component {
                <View style={{flexDirection:'row', flexWrap:'wrap'}}>
 
                     <View style={styles.sortGraph}>
-                            
+                  
                             <Text style={this.state.pressStatusDay ? styles.buttonPress : styles.welcome} onPress={this.onPressDay}>
                                 Day</Text>
                             <Text style={this.state.pressStatusWeek ? styles.buttonPress : styles.welcome} onPress={this.onPressWeek}>
@@ -262,119 +303,23 @@ class UserScreen extends Component {
                 {this.showTotal()}
               </View>
 
-              <View style={styles.card}>
-
-                  <Text style={{color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: 15,
-                    marginBottom: 20,
-                    marginTop: 20}}>
-                    PINNED VOUCHER
-                  </Text>
-
-                  <View style={{flexDirection: 'row',marginBottom: 30}}>
-
-
-                    {/* PIE CHART */}
-                    <View style={styles.eachPie}>
-                      <View>
-                        <Pie
-                          radius={36}
-                          innerRadius={31}
-                          series={[40]}
-                          colors={['#F5318D']}
-                          backgroundColor='#364060'
-                        />
-                        <View style={styles.gauge}>
-                          <Text style={styles.gaugeText}>40%</Text>
-                        </View>
-                      </View>
-
-                      <Text style={styles.textG}>400 / 1000</Text>
-                      <Text style={styles.textDet}>Chocolate Mocha</Text>
-                      
-                    </View>
-                    {/* END PIE CHART */}
-
-                    {/* PIE CHART */}
-                    <View style={styles.eachPie}>
-                      <View>
-                        <Pie
-                          radius={35}
-                          innerRadius={30}
-                          series={[40]}
-                          colors={['#F5318D']}
-                          backgroundColor='#364060'
-                        />
-                        <View style={styles.gauge}>
-                          <Text style={styles.gaugeText}>40%</Text>
-                        </View>
-                      </View>
-
-                      <Text style={styles.textG}>400 / 1000</Text>
-                      <Text style={styles.textDet}>Chocolate Mocha</Text>
-                      
-                    </View>
-                    {/* END PIE CHART */}
-
-                  </View>
-
-                  
-                  <View style={{flexDirection: 'row', marginBottom: 30}}>
-
-
-                    {/* PIE CHART */}
-                    <View style={styles.eachPie}>
-                      <View>
-                        <Pie
-                          radius={35}
-                          innerRadius={30}
-                          series={[40]}
-                          colors={['#F5318D']}
-                          backgroundColor='#364060'
-                        />
-                        <View style={styles.gauge}>
-                          <Text style={styles.gaugeText}>40%</Text>
-                        </View>
-                      </View>
-
-                      <Text style={styles.textG}>400 / 1000</Text>
-                      <Text style={styles.textDet}>Chocolate Mocha</Text>
-                      
-                    </View>
-                    {/* END PIE CHART */}
-
-                    {/* PIE CHART */}
-                    <View style={styles.eachPie}>
-                      <View>
-                        <Pie
-                          radius={35}
-                          innerRadius={30}
-                          series={[40]}
-                          colors={['#F5318D']}
-                          backgroundColor='#364060'
-                        />
-                        <View style={styles.gauge}>
-                          <Text style={styles.gaugeText}>40%</Text>
-                        </View>
-                      </View>
-
-                      <Text style={styles.textG}>400 / 1000</Text>
-                      <Text style={styles.textDet}>Chocolate Mocha</Text>
-                      
-                    </View>
-                    {/* END PIE CHART */}
-
-                  </View>
-                    
-
-                  
-
-
+              <View style={styles.justForYouText}>
+                <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Your Vouchers</Text>
               </View>
+    
+              <View style={{ height: 190 }}>
+                <CarouselJustForYou
+                  ref={(c) => { this._carousel = c; }}
+                  data={this.props.claimedVoucher}
+                  renderItem={this._renderItem}
+                  sliderWidth={BannerWidth}
+                  itemWidth={150}
+                />
+              </View>
+
           
 
-         </ScrollView>
+          </ScrollView>
         );
 
     }
@@ -382,6 +327,23 @@ class UserScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    justForYouText: {
+      width: 250,
+      marginTop: 30,
+    marginBottom: 10
+  },
+  slide: {
+    height: 150,
+    width: 150,
+    backgroundColor: 'transparent'
+  },
+  point: {
+    fontSize: 17,
+    color: '#F72582',
+    textAlign: 'center',
+    marginTop: 10,
+    fontWeight: 'bold',
+  },
     dayLabel:{
       color: '#7B7B7B',
       marginRight: 5
@@ -394,7 +356,10 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: '#F72582',
       margin: 3,
+      paddingTop : 6,
       color: '#F72582',
+      justifyContent : 'center',
+      alignItems : 'center',
       textAlign: 'center',
       textAlignVertical: 'center'
         
@@ -404,6 +369,7 @@ const styles = StyleSheet.create({
       height: 30,
       width: 70,
       borderRadius:10,
+      paddingTop : 6,      
       margin: 3,
       backgroundColor: '#F72582',
       textAlign: 'center',
@@ -461,4 +427,7 @@ const styles = StyleSheet.create({
     }
   });
   
-  export default UserScreen
+
+  const mapStateToProps = (state) => state
+  
+  export default connect(mapStateToProps)(UserScreen)

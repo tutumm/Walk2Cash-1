@@ -10,12 +10,10 @@ import {
 
 import { MapView } from 'expo'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import Modal from 'react-native-modalbox'
 import { Col, Row, Grid } from "react-native-easy-grid"
 
 import { getBonusPoint } from '../action.js'
-
 
 class Map extends React.Component {
 

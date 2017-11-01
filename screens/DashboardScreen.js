@@ -36,7 +36,8 @@ class DashboardScreen extends Component {
     score: 0,
     count: 0,
     modalVisible: false,
-    items: []
+    items: [],
+    companion: 0,
   }
 
   componentDidMount() {
@@ -124,20 +125,20 @@ class DashboardScreen extends Component {
     );
   }
 
-  render() {
-    
-    const { dispatch } = this.props
+  togglePress = () => {
+    if (this.state.companion==0)
+      this.setState({
+        companion: 1
+      })
+    else if (this.state.companion==1)
+      this.setState({
+      companion: 0
+    })
+  }
 
-    return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <StatusBar
-          backgroundColor="blue"
-          barStyle="light-content"
-        />
-        <View style={styles.card1}>
-          <Text style={styles.myPointTextstyle}>MY POINTS: <Text style={styles.scoreTextStyle}>{this.props.totalPoint}</Text></Text>
-        </View>
-
+  toggleCompanion = () => {
+    if(this.state.companion==0){
+      return (
         <View style={styles.card2}>
           <Text style={styles.todayText}>TODAY</Text>
           <View>
@@ -158,12 +159,49 @@ class DashboardScreen extends Component {
             <Col><Text style={styles.statHead}>Hi2</Text></Col>
           </Grid>
         </View>
+      );
+    } else if(this.state.companion==1){
+      return (
+        <View style={{flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#262d47',
+            shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 10,
+            width: 300,
+            height: 330,
+            marginTop: 20,}}>
+          <Text style={styles.todayText}>สวัสดี John</Text>
+          <Text style={{width: '75%', color: 'white', textAlign: 'center'}}>หากคุณเดินเร็วในระดับที่หัวใจเพิ่มอัตราการเต้นได้ 10,000 ก้าวต่อวัน หรือ 3 วันต่อสัปดาห์ จะช่วยในเรื่องของความดันโลหิตได้เป็นอย่างดีเลยล่ะ</Text>
+        </View>
+      );
+    }
+  }
+
+  render() {
+    
+    const { dispatch } = this.props
+
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <StatusBar
+          backgroundColor="blue"
+          barStyle="light-content"
+        />
+        <View style={styles.card1}>
+          <Text style={styles.myPointTextstyle}>MY POINTS: <Text style={styles.scoreTextStyle}>{this.props.totalPoint}</Text></Text>
+        </View>
+
+
+        <TouchableHighlight onPress={this.togglePress}>
+          {this.toggleCompanion()}
+        </TouchableHighlight>
 
         <View style={{ alignItems: 'stretch', width: 300, marginTop: 20 }}>
           <View>
             <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold', textAlign: 'left' }}>EVENTS</Text>
           </View>
         </View>
+
 
         <View style={{ marginTop: 10, marginBottom: 30 }}>
           <CarouselEvents

@@ -170,8 +170,9 @@ class DashboardScreen extends Component {
             width: 300,
             height: 330,
           }}>
-          <Text style={styles.todayText}>สวัสดี John</Text>
+          <Text style={styles.todayText}>สวัสดี {this.props.username}</Text>
           <Text style={{width: '75%', color: 'white', textAlign: 'center'}}>หากคุณเดินเร็วในระดับที่หัวใจเพิ่มอัตราการเต้นได้ 10,000 ก้าวต่อวัน หรือ 3 วันต่อสัปดาห์ จะช่วยในเรื่องของความดันโลหิตได้เป็นอย่างดีเลยล่ะ</Text>
+          <Text style={{color: 'grey', fontSize: 13, opacity: 0.6, paddingTop: 30}}>Sponsored By sponsor</Text>
         </View>
       );
     }

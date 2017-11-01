@@ -81,13 +81,13 @@ const App = () => {
 
         <Scene key = "root">
 
-        {/* <Scene
+        <Scene
           key = "login"
           component = {LoginScreen}
           title = "LoginScreen"
           hideNavBar={true}
           initial
-        /> */}
+        />
 
           <Scene
              key =  "tabbar"

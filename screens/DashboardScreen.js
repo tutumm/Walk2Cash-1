@@ -169,7 +169,7 @@ class DashboardScreen extends Component {
             shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 10,
             width: 300,
             height: 330,
-            marginTop: 20,}}>
+          }}>
           <Text style={styles.todayText}>สวัสดี John</Text>
           <Text style={{width: '75%', color: 'white', textAlign: 'center'}}>หากคุณเดินเร็วในระดับที่หัวใจเพิ่มอัตราการเต้นได้ 10,000 ก้าวต่อวัน หรือ 3 วันต่อสัปดาห์ จะช่วยในเรื่องของความดันโลหิตได้เป็นอย่างดีเลยล่ะ</Text>
         </View>
@@ -192,7 +192,7 @@ class DashboardScreen extends Component {
         </View>
 
 
-        <TouchableHighlight onPress={this.togglePress}>
+        <TouchableHighlight activeOpacity={100} onPress={this.togglePress} style={{marginTop: 20}}> 
           {this.toggleCompanion()}
         </TouchableHighlight>
 
@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 10,
     width: 300,
     height: 330,
-    marginTop: 20,
   },
   container: {
     alignItems: 'center',
